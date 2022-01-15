@@ -1,8 +1,21 @@
 const PersonSchema = require('../models/Person')
 const EventSchema = require('../models/Event')
 const TasksSchema = require('../models/Task')
-
+const Cloudinary = require('../utils/cloudinary');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
+
+exports.changePic = catchAsyncErrors(async (req, res, next) => {
+        try
+        {
+            // const result = await Cloudinary.uploader.upload(req.file.path);
+            res.json(req.file)
+        }
+        catch(err)
+        {
+            console.log(err);
+            
+        }
+})
 
 exports.requestsDetailsById = catchAsyncErrors(async (req, res, next) => {
     const { userId } = req.params;

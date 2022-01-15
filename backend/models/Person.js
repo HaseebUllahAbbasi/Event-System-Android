@@ -27,9 +27,14 @@ const PersonSchema = new mongoose.Schema(
             required: [true, "please Enter password"],  
             maxlength: [20, "Your Number cannot exceed 20 charachters"]
         },
+        profile: {
+            type: String,
+            required: [true, "please Enter Profile"]
+        },
         requests:[],
         member:[],
-        tasks:[]
+        tasks:[],
+
     }
 )
 module.exports = mongoose.model('Person',PersonSchema);
