@@ -1,20 +1,50 @@
 const PersonSchema = require('../models/Person')
 const EventSchema = require('../models/Event')
 const TasksSchema = require('../models/Task')
-const Cloudinary = require('../utils/cloudinary');
+const Cloudinary = require('../utils/cloudinary').v2;;
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
-exports.changePic = catchAsyncErrors(async (req, res, next) => {
-        try
+
+
+exports.changePic = catchAsyncErrors(async (req, res, next) => 
+{
+    const {id} = req.params;
+    try {
+        const image = (req.files.image);
+        const imageStatus = verifyImage(image);
+        Cloudinary.config({
+            cloud_name: process.env.CLOUDINARY_NAME,
+            api_key: process.env.CLOUDINARY_API_KEY,
+            api_secret: process.env.CLOUDINARY_API_SECRET,
+            secure: true
+        });
+
+
+        if (imageStatus) 
         {
-            // const result = await Cloudinary.uploader.upload(req.file.path);
-            res.json(req.file)
+            const result = await Cloudinary.uploader.upload(req.files.image.tempFilePath);
+            await PersonSchema.updateOne({ _id: id }, { profile: result.url });
+            res.status(200).json({
+                success: true,
+                public_url: result.url
+            })
+
         }
-        catch(err)
-        {
-            console.log(err);
-            
+        else {
+            res.status(401).json({
+                success: false,
+                message: "please provide image within the range of 100kb"
+
+            })
         }
+
+        console.log(image);
+        // res.json(req.body)
+    }
+    catch (err) {
+        console.log(err);
+
+    }
 })
 
 exports.requestsDetailsById = catchAsyncErrors(async (req, res, next) => {
@@ -23,8 +53,7 @@ exports.requestsDetailsById = catchAsyncErrors(async (req, res, next) => {
     if (foundPerson) {
         const requestDetailedData = [];
         const requestList = foundPerson.requests;
-        if (requestList.length == 0) 
-        {
+        if (requestList.length == 0) {
             res.status(401).json({
                 success: false,
                 msg: "has no requests"
@@ -33,14 +62,12 @@ exports.requestsDetailsById = catchAsyncErrors(async (req, res, next) => {
         }
         else {
             const allEvents = await EventSchema.find();
-            for (let i = 0; i <allEvents.length; i++) 
-            {
-                for (let j = 0; j <requestList.length; j++) 
-                {
+            for (let i = 0; i < allEvents.length; i++) {
+                for (let j = 0; j < requestList.length; j++) {
                     if (allEvents[i]._id == requestList[j].id)
                         requestDetailedData.push(allEvents[i])
                 }
-                    
+
             }
             res.status(200).json({
                 success: true,
@@ -58,24 +85,22 @@ exports.requestsDetailsById = catchAsyncErrors(async (req, res, next) => {
 
 
 })
-exports.getAllNames =  catchAsyncErrors(async (req, res, next) => {
-    const persons =  await PersonSchema.find();
-    const  namesList =   persons.map(person=> person.name);
-    if( namesList.length==0)
-    {
+exports.getAllNames = catchAsyncErrors(async (req, res, next) => {
+    const persons = await PersonSchema.find();
+    const namesList = persons.map(person => person.name);
+    if (namesList.length == 0) {
         res.status(200).json(
             {
-                success : false,
+                success: false,
                 message: "Not Person"
             }
         )
     }
-    else
-    {
-        
+    else {
+
         res.status(200).json(
             {
-                success : false,
+                success: false,
                 namesList
             }
         )
@@ -108,16 +133,14 @@ exports.myEvents = catchAsyncErrors(async (req, res, next) => {
 exports.getEventByUserId = catchAsyncErrors(async (req, res, next) => {
     const { id } = req.body;
     const events = await EventSchema.find();
-    const teamsLists = events.filter(event => 
-    {
+    const teamsLists = events.filter(event => {
         const listofOneTeam = event.team;
-        if(event.userId== id)
+        if (event.userId == id)
             return event;
         // console.log(listofOneTeam)  
-        for(let i=0; i<listofOneTeam.length; i++)
-        {
-            if(id == listofOneTeam[i].id)
-            return event;
+        for (let i = 0; i < listofOneTeam.length; i++) {
+            if (id == listofOneTeam[i].id)
+                return event;
         }
     });
     if (teamsLists.length == 0)
@@ -186,10 +209,9 @@ exports.login = catchAsyncErrors(async (req, res, next) => {
         })
 
     }
-    else
-    {
+    else {
         res.status(200).json({
-            success:false,
+            success: false,
             message: "Incorrect Email or Password"
         })
     }
@@ -248,8 +270,9 @@ exports.getPersonByID = catchAsyncErrors(async (req, res, next) => {
 
 exports.addPerson = catchAsyncErrors(async (req, res, next) => {
     const { name, email, number, password } = req.body;
+    const profile = "null";
     const personCreated = await PersonSchema.create({
-        name, password, email, number
+        name, password, email, number, profile
     });
     res.status(200).json({
         success: true,
@@ -346,12 +369,10 @@ exports.requestsById = catchAsyncErrors(async (req, res, next) => {
 exports.cancelRequest = catchAsyncErrors(async (req, res, next) => {
     const { userId, eventId } = req.body;
     const foundPerson = await PersonSchema.findById(userId);
-    if(foundPerson)
-    {
+    if (foundPerson) {
         const requestList = foundPerson.requests;
         const index = searchIndex(requestList, eventId);
-        if (index != -1) 
-        {
+        if (index != -1) {
             foundPerson.requests.splice(index, 1);
             const updatedPerson = await PersonSchema.updateOne({ _id: foundPerson._id }, { member: [...foundPerson.member], requests: [...requestList] });
             res.status(200).json({
@@ -370,16 +391,15 @@ exports.cancelRequest = catchAsyncErrors(async (req, res, next) => {
         }
 
     }
-    else
-    {
+    else {
         res.status(400).json({
-            success:false,
+            success: false,
             message: "Person Not Found"
         })
     }
-    
 
-    
+
+
 
 })
 
@@ -396,7 +416,7 @@ exports.acceptRequest = catchAsyncErrors(async (req, res, next) => {
             const addingToEvent = foundPerson.requests.splice(index, 1);
 
             foundPerson.member.push(addingToEvent[0])
-            
+
 
 
             const eventByID = await EventSchema.findById(eventId);
@@ -444,3 +464,26 @@ const searchIndex = (list, id) => {
         return -1;
     }
 }
+const verifyImage = (image) => {
+    const name = image.name;
+    if (name) {
+        const splitted = name.split(".");
+        if (splitted.length == 2) {
+            if (splitted[1] == "png" || splitted[1] == "jpg" || splitted[1] == "jpeg")
+                return true;
+            else
+                return false;
+        }
+        else {
+            return false;
+
+
+        }
+
+    }
+    else {
+        return false;
+    }
+
+};
+

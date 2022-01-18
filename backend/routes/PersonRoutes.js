@@ -1,5 +1,20 @@
 const express = require('express');
-const multer = require('../utils/multer');
+// const multer = require('../utils/multer');
+
+const multer = require('multer');
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now())
+    }
+  })
+  
+  var upload = multer({ storage: storage })
+
+
+
 
 const { addPerson, updatePerson,getAllNames,completeTasks,cancelRequest,requestsDetailsById,myEvents,getEventByUserId,getTasksByUser,findByName,requestsById,acceptRequest,login,deletePerson,getAllpersons, getPersonByID, getCompletedTasksByUser, getUnCompletedTasksByUser, changePic } = require('../controllers/PersonController');
 const router = express.Router();
@@ -15,7 +30,7 @@ router.route('/cancelRequest').post(cancelRequest)
 router.route('/requests/:userId').get(requestsById)
 router.route('/requestsDetails/:userId').get(requestsDetailsById)
 
-router.route('/changePic/:id',multer.single("image")).post(changePic);
+router.route('/changePic/:id').post(changePic);
 
 router.route('/tasksByID/:userId').get(getTasksByUser)
 router.route('/completedTasks/:userId').get(getCompletedTasksByUser)
