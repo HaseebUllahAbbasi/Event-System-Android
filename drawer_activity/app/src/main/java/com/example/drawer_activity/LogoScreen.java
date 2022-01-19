@@ -38,7 +38,7 @@ public class LogoScreen extends AppCompatActivity  implements Animation.Animatio
             @Override
             public void run() {
 
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(),LoginPage.class);
                 startActivity(intent);
                 finish();
 
