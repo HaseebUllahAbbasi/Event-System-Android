@@ -6,9 +6,8 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
 
 
-exports.changePic = catchAsyncErrors(async (req, res, next) => 
-{
-    const {id} = req.params;
+exports.changePic = catchAsyncErrors(async (req, res, next) => {
+    const { id } = req.params;
     try {
         const image = (req.files.image);
         const imageStatus = verifyImage(image);
@@ -20,8 +19,7 @@ exports.changePic = catchAsyncErrors(async (req, res, next) =>
         });
 
 
-        if (imageStatus) 
-        {
+        if (imageStatus) {
             const result = await Cloudinary.uploader.upload(req.files.image.tempFilePath);
             await PersonSchema.updateOne({ _id: id }, { profile: result.url });
             res.status(200).json({
@@ -190,6 +188,112 @@ exports.findByName = catchAsyncErrors(async (req, res, next) => {
 
     }
 })
+
+exports.changeData = catchAsyncErrors(async (req, res, next) => 
+{
+    const { id, name, email, number, desc } = req.body;
+    const updateUserData =
+    {
+        name, password, email, number,desc
+    };
+
+    try {
+        const updated = await PersonSchema.findByIdAndUpdate(id, updateUserData)
+
+        if (updated) {
+            res.status(200).json({
+                success: true,
+                updated
+            })
+        }
+        else {
+            res.status(402).json({
+                success: false,
+            })
+
+        }
+
+    }
+    catch (err) {
+        res.status(401).json({
+            success: false,
+            message: "Please Enter Different Name, number and email ",
+            errMessage: err.message
+
+        })
+
+    }
+
+})
+
+exports.changeDescription = catchAsyncErrors(async (req, res, next) => 
+{
+    const { id, desc } = req.body;
+    
+
+    try {
+        const updated = await PersonSchema.findByIdAndUpdate({_id: id}, {desc: desc})
+
+        if (updated) {
+            res.status(200).json({
+                success: true,
+                updated
+            })
+        }
+        else {
+            res.status(400).json({
+                success: false,
+                message: "Error in updating the Description",
+            })
+
+        }
+
+    }
+    catch (err) {
+        res.status(400).json({
+            success: false,
+            message: "Error in updating the Description",
+            errMessage: err.message
+
+        })
+
+    }
+
+})
+exports.changePassword = catchAsyncErrors(async (req, res, next) => 
+{
+    const { id, desc } = req.body;
+    
+
+    try {
+        const updated = await PersonSchema.findByIdAndUpdate({_id: id}, {desc: desc})
+
+        if (updated) {
+            res.status(200).json({
+                success: true,
+                updated
+            })
+        }
+        else {
+            res.status(400).json({
+                success: false,
+                message: "Error in updating the Description",
+            })
+
+        }
+
+    }
+    catch (err) {
+        res.status(400).json({
+            success: false,
+            message: "Error in updating the Description",
+            errMessage: err.message
+
+        })
+
+    }
+
+})
 exports.login = catchAsyncErrors(async (req, res, next) => {
     const { name, password } = req.body;
     const listUsers = await PersonSchema.find();
@@ -239,19 +343,34 @@ exports.updatePerson = catchAsyncErrors(async (req, res, next) => {
     {
         name, password, email, number
     };
-    const updated = await PersonSchema.findByIdAndUpdate(id, updateUserData)
-    if (updated) {
-        res.status(200).json({
-            success: true,
-            updated
-        })
+
+    try {
+        const updated = await PersonSchema.findByIdAndUpdate(id, updateUserData)
+
+        if (updated) {
+            res.status(200).json({
+                success: true,
+                updated
+            })
+        }
+        else {
+            res.status(402).json({
+                success: false,
+            })
+
+        }
+
     }
-    else {
-        res.status(402).json({
+    catch (err) {
+        res.status(401).json({
             success: false,
+            message: "Please Enter Different Name, number and email ",
+            errMessage: err.message
+
         })
 
     }
+
 })
 exports.getPersonByID = catchAsyncErrors(async (req, res, next) => {
     const { id } = req.params;
@@ -271,13 +390,37 @@ exports.getPersonByID = catchAsyncErrors(async (req, res, next) => {
 exports.addPerson = catchAsyncErrors(async (req, res, next) => {
     const { name, email, number, password } = req.body;
     const profile = "null";
-    const personCreated = await PersonSchema.create({
-        name, password, email, number, profile
-    });
-    res.status(200).json({
-        success: true,
-        personCreated
-    })
+    try {
+        const personCreated = await PersonSchema.create({
+            name, password, email, number, profile
+        });
+
+        if (personCreated) {
+
+            res.status(200).json({
+                success: true,
+                personCreated
+            })
+        }
+        else {
+            res.status(401).json({
+                success: false,
+                message: "Please Enter Different Name, number and email "
+            })
+        }
+
+    }
+    catch (err) {
+        res.status(401).json({
+            success: false,
+            message: "Please Enter Different Name, number and email ",
+            errMessage: err.message
+        })
+
+    }
+
+
+
 })
 exports.getTasksByUser = catchAsyncErrors(async (req, res, next) => {
     const { userId } = req.params;

@@ -9,8 +9,7 @@ exports.getMembersByEvent = catchAsyncErrors(async (req, res, next) => {
     const { eventId } = req.params;
     const event = await EventSchema.findById(eventId);
     if (event) {
-        if (event.team.length == 0) 
-        {
+        if (event.team.length == 0) {
             res.status(401).json(
                 {
                     success: false,
@@ -112,21 +111,32 @@ exports.removeMember = catchAsyncErrors(async (req, res, next) => {
 
 exports.createEvent = catchAsyncErrors(async (req, res, next) => {
     const { userName, plannerId, eventName, eventStatus, eventDesc } = req.body;
-    const eventCreated = await EventSchema.create({
-        userId: plannerId,
-        eventName: eventName,
-        eventStatus: eventStatus,
-        eventDesc: eventDesc,
-        userName: userName
-        // team : []
-    })
-    res.status(200).json(
-        {
+
+
+    try {
+        const eventCreated = await EventSchema.create({
+            userId: plannerId,
+            eventName: eventName,
+            eventStatus: eventStatus,
+            eventDesc: eventDesc,
+            userName: userName
+        })
+        res.status(200).json({
             success: true,
             eventCreated
-        }
-    )
+        })
+    }
+    catch(err)
+    {
+        
+        res.status(401).json({
+            success: false,
+            message: `event exists with name ${eventName}`,
+            errMessage: err.message,
+        })
+    }
 })
+
 exports.getTasksByEventId = catchAsyncErrors(async (req, res, next) => {
     const { eventId } = req.params;
     const events = await TaskSchema.find();
@@ -461,12 +471,11 @@ exports.assignTaskByName = catchAsyncErrors(async (req, res, next) => {
             if (eventById.team[0].name == taskAssignedTo)
                 found = true;
         }
-        if (found==false) 
-        {
+        if (found == false) {
             res.status(200).json({
                 success: false,
                 message: "Person is Not Team Member",
-            })  
+            })
 
         }
         else {
@@ -491,9 +500,9 @@ exports.getNotesOfEvent = catchAsyncErrors(async (req, res, next) => {
     const { eventId } = req.body;
     const notesList = await NotesSchema.find();
 
-    
+
     const noteListsFound = notesList.filter(note => note.eventId == eventId);
-    
+
 
     if (noteListsFound.length != 0) {
         res.status(200).json(

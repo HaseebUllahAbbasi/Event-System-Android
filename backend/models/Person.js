@@ -31,6 +31,10 @@ const PersonSchema = new mongoose.Schema(
             type: String,
             required: [true, "please Enter Profile"]
         },
+        desc:{
+            type:String
+        },
+        
         requests:[],
         member:[],
         tasks:[],

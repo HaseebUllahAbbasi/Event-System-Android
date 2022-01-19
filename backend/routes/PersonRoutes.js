@@ -14,12 +14,13 @@ var storage = multer.diskStorage({
   var upload = multer({ storage: storage })
 
 
-
-
-const { addPerson, updatePerson,getAllNames,completeTasks,cancelRequest,requestsDetailsById,myEvents,getEventByUserId,getTasksByUser,findByName,requestsById,acceptRequest,login,deletePerson,getAllpersons, getPersonByID, getCompletedTasksByUser, getUnCompletedTasksByUser, changePic } = require('../controllers/PersonController');
+const { addPerson, updatePerson,getAllNames,completeTasks,cancelRequest,requestsDetailsById,myEvents,getEventByUserId,getTasksByUser,findByName,requestsById,acceptRequest,login,deletePerson,getAllpersons, getPersonByID, getCompletedTasksByUser, getUnCompletedTasksByUser, changePic, changeDescription, changeData } = require('../controllers/PersonController');
 const router = express.Router();
 router.route('/persons').get(getAllpersons);
 router.route('/person').put(updatePerson);
+router.route('/person/changeDesc').post(changeDescription);
+router.route('/person/changeData').post(changeData);
+
 router.route('/person').post(addPerson);
 router.route('/person').delete(deletePerson);
 router.route('/person/:id').get(getPersonByID);
