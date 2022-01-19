@@ -188,6 +188,112 @@ exports.findByName = catchAsyncErrors(async (req, res, next) => {
 
     }
 })
+
+exports.changeData = catchAsyncErrors(async (req, res, next) => 
+{
+    const { id, name, email, number, desc } = req.body;
+    const updateUserData =
+    {
+        name, password, email, number,desc
+    };
+
+    try {
+        const updated = await PersonSchema.findByIdAndUpdate(id, updateUserData)
+
+        if (updated) {
+            res.status(200).json({
+                success: true,
+                updated
+            })
+        }
+        else {
+            res.status(402).json({
+                success: false,
+            })
+
+        }
+
+    }
+    catch (err) {
+        res.status(401).json({
+            success: false,
+            message: "Please Enter Different Name, number and email ",
+            errMessage: err.message
+
+        })
+
+    }
+
+})
+
+exports.changeDescription = catchAsyncErrors(async (req, res, next) => 
+{
+    const { id, desc } = req.body;
+    
+
+    try {
+        const updated = await PersonSchema.findByIdAndUpdate({_id: id}, {desc: desc})
+
+        if (updated) {
+            res.status(200).json({
+                success: true,
+                updated
+            })
+        }
+        else {
+            res.status(400).json({
+                success: false,
+                message: "Error in updating the Description",
+            })
+
+        }
+
+    }
+    catch (err) {
+        res.status(400).json({
+            success: false,
+            message: "Error in updating the Description",
+            errMessage: err.message
+
+        })
+
+    }
+
+})
+exports.changePassword = catchAsyncErrors(async (req, res, next) => 
+{
+    const { id, desc } = req.body;
+    
+
+    try {
+        const updated = await PersonSchema.findByIdAndUpdate({_id: id}, {desc: desc})
+
+        if (updated) {
+            res.status(200).json({
+                success: true,
+                updated
+            })
+        }
+        else {
+            res.status(400).json({
+                success: false,
+                message: "Error in updating the Description",
+            })
+
+        }
+
+    }
+    catch (err) {
+        res.status(400).json({
+            success: false,
+            message: "Error in updating the Description",
+            errMessage: err.message
+
+        })
+
+    }
+
+})
 exports.login = catchAsyncErrors(async (req, res, next) => {
     const { name, password } = req.body;
     const listUsers = await PersonSchema.find();
@@ -260,7 +366,7 @@ exports.updatePerson = catchAsyncErrors(async (req, res, next) => {
             success: false,
             message: "Please Enter Different Name, number and email ",
             errMessage: err.message
-            
+
         })
 
     }
