@@ -8,7 +8,7 @@
     android:background="#EAC235"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context=".InviteGuest">
+    tools:context=".AssignTask">
 
     <ImageView
         android:layout_width="250dp"
@@ -26,11 +26,11 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="12dp"
         android:layout_weight="0.03"
-        android:hint="Enter Guest Name"
+        android:hint="Enter Member Name"
         app:endIconTint="@color/design_default_color_on_primary">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/guest_invite_name"
+            android:id="@+id/task_assignTo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:ignore="SpeakableTextPresentCheck" />
@@ -45,12 +45,12 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="12dp"
         android:layout_weight="0.03"
-        android:hint="Enter Guest Number"
+        android:hint="Enter Task"
 
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/guest_invite_number"
+            android:id="@+id/task_desc"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -66,8 +66,8 @@
         android:layout_weight="0.12"
         android:backgroundTint="@color/cardview_dark_background"
 
-        android:onClick="inviteGuest"
-        android:text="Invite Guest"
+        android:onClick="assignTask"
+        android:text="Assign Task"
         android:textColor="#FAF4F4"
         android:textSize="20dp" />
 

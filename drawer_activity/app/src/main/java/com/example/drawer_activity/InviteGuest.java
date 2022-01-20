@@ -3,12 +3,14 @@ package com.example.drawer_activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.textfield.TextInputEditText;
 
 public class InviteGuest extends AppCompatActivity {
 
+    private static final String TAG = "Alert" ;
     TextInputEditText name,number;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,10 @@ public class InviteGuest extends AppCompatActivity {
 
     public void inviteGuest(View view)
     {
+        Log.d(TAG, "removeMember:  name "+ name.getText().toString());
+        Log.d(TAG, "removeMember: number "+ number.getText().toString());
+
+        Log.d(TAG, "inviteGuest: ");
 
     }
 }

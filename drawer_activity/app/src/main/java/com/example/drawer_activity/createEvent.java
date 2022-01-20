@@ -28,7 +28,8 @@ public class createEvent extends AppCompatActivity {
     LinearLayout layout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
         layout = findViewById(R.id.eventLayout);
@@ -37,7 +38,6 @@ public class createEvent extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("users",MODE_PRIVATE);
         username = pref.getString("username",null);
         userid = pref.getString("userid",null);
-
     }
     public void onCreateEvent(View view)
     {

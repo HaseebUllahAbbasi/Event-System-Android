@@ -20,7 +20,7 @@ router.route('/persons').get(getAllpersons);
 router.route('/person').put(updatePerson);
 router.route('/person/changeDesc').post(changeDescription);
 router.route('/person/changeData').post(changeData);
-
+router.route('/person/changePassword').post(changePassword);
 router.route('/person').post(addPerson);
 router.route('/person').delete(deletePerson);
 router.route('/person/:id').get(getPersonByID);

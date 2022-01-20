@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Drawer_activity">
         <activity
+            android:name=".RemoveMember"
+            android:exported="true" />
+        <activity
+            android:name=".AssignTask"
+            android:exported="true" />
+        <activity
+            android:name=".InviteMember"
+            android:exported="true" />
+        <activity
             android:name=".InviteGuest"
             android:exported="true" />
         <activity
