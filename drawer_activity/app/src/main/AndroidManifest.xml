@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Drawer_activity">
         <activity
+            android:name=".ChangeDescription"
+            android:exported="true" />
+        <activity
+            android:name=".createNote"
+            android:exported="true" />
+        <activity
             android:name=".RemoveMember"
             android:exported="true" />
         <activity
