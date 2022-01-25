@@ -12,14 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Drawer_activity">
         <activity
-<<<<<<< HEAD
+            android:name=".ViewEventRequests"
+            android:exported="true" />
+        <activity
             android:name=".ShowEvents"
-=======
+            android:exported="true" />
+        <activity
             android:name=".ChangeDescription"
             android:exported="true" />
         <activity
             android:name=".createNote"
->>>>>>> 51df78a97d018eea061c01ae56bb6b9a2c09a29f
             android:exported="true" />
         <activity
             android:name=".RemoveMember"
@@ -47,20 +49,22 @@
             android:exported="true" />
         <activity
             android:name=".LogoScreen"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Drawer_activity.NoActionBar" >
+            android:theme="@style/Theme.Drawer_activity.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -82,6 +82,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onButtonClickAnimationStart(@NonNull CircleMenuView view, int index) {
                 Log.d("D","onButtonClickAnimationStart|index: "+index);
+                switch (index){
+                    case 0:
+                        Intent intent = new Intent(getApplicationContext(),ViewEventRequests.class);
+                        startActivity(intent);
+                        break;
+                }
             }
             @Override
             public void onButtonClickAnimationEnd(@NonNull CircleMenuView view, int index) {
