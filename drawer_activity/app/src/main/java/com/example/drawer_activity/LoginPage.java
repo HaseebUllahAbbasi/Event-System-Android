@@ -62,6 +62,7 @@ public class LoginPage extends AppCompatActivity {
 
                         editor.putString("username",user.getString("name"));
                         editor.putString("userid",user.getString("_id"));
+                        editor.putString("email", user.getString("email"));
                         editor.commit();
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
@@ -85,5 +86,6 @@ public class LoginPage extends AppCompatActivity {
     {
         Intent intent = new Intent(this,RegisterUser.class);
         startActivity(intent);
+//        finish();
     }
 }

@@ -1,6 +1,9 @@
 package com.example.drawer_activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +14,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MyEventAdapter extends RecyclerView.Adapter<MyEventAdapter.ViewHolder> {
 
-    MyEvents[] myEvents;
+    ArrayList<MyEvents>myEvents;
     Context context;
 
-    public MyEventAdapter(MyEvents[] myEvents, ShowEvents activity) {
+    public MyEventAdapter(ArrayList<MyEvents> myEvents, ShowEvents activity) {
         this.myEvents = myEvents;
         this.context = activity;
+        Log.d(TAG, "MyEventAdapter: "+ Arrays.toString(myEvents.toArray()));
+
     }
 
     @NonNull
@@ -31,8 +39,9 @@ public class MyEventAdapter extends RecyclerView.Adapter<MyEventAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final MyEvents events = myEvents[position];
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
+    {
+        final MyEvents events = myEvents.get(position);
         holder.textViewName.setText(events.getEventName());
         holder.textViewDate.setText(events.getEventDescription());
         holder.movieImage.setImageResource(events.getImage());
@@ -47,11 +56,12 @@ public class MyEventAdapter extends RecyclerView.Adapter<MyEventAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return myEvents.length;
+        return myEvents.size();
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder
+    {
         ImageView movieImage;
         TextView textViewName;
         TextView textViewDate;

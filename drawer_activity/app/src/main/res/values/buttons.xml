@@ -3,11 +3,11 @@
     <!-- we need two arrays, one for the icons and one for the colors of the icons-->
     <!-- icons array-->
     <array name="icons">
+        <item>@drawable/ic_add_white_24dp</item>
         <item>@drawable/ic_baseline_home_24</item>
-        <item>@drawable/ic_baseline_settings_24</item>
-        <item>@drawable/ic_baseline_edit_location_24</item>
+        <item>@drawable/request</item>
         <item>@drawable/ic_baseline_person_search_24</item>
-        <item>@drawable/ic_baseline_delete_forever_24</item>
+        <item>@drawable/logout</item>
     </array>
     <!-- icons colors-->
     <array name="colors">

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -68,8 +69,16 @@ public class createEvent extends AppCompatActivity {
                 public void onResponse(JSONObject response) {
                     try {
                         if (response.getBoolean("success")) {
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
+                            Snackbar.make(layout, "Event Created", Snackbar.LENGTH_SHORT).show();
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(intent);
+                                }
+                            },3000);
+
                         } else {
                             Snackbar.make(layout, "Error! Unable to Create Event", Snackbar.LENGTH_SHORT).show();
 

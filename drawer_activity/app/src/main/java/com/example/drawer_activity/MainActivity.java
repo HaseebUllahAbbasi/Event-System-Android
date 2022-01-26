@@ -1,11 +1,13 @@
 package com.example.drawer_activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.ag.floatingactionmenu.OptionsFabLayout;
@@ -25,26 +27,24 @@ import com.ramotion.circlemenu.CircleMenuView;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView nameView,emailView;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
     private OptionsFabLayout fabWithOptions;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ShowEvents.class);
-                startActivity(intent);
-            }
-        });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -55,9 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
 
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        View headerView = navigationView.getHeaderView(0);
+        nameView =  headerView.findViewById(R.id.NameText_View);
+        emailView =  headerView.findViewById(R.id.EmailTextView);
+
 
 
 
@@ -82,16 +88,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onButtonClickAnimationStart(@NonNull CircleMenuView view, int index) {
                 Log.d("D","onButtonClickAnimationStart|index: "+index);
-                switch (index){
-                    case 0:
-                        Intent intent = new Intent(getApplicationContext(),ViewEventRequests.class);
-                        startActivity(intent);
-                        break;
-                }
+
             }
             @Override
             public void onButtonClickAnimationEnd(@NonNull CircleMenuView view, int index) {
                 Log.d("D","onButtonClickAnimationEnd|index: "+index);
+                switch (index){
+                    case 0:
+                        Intent createEvent = new Intent(getApplicationContext(),createEvent.class);
+                        startActivity(createEvent);
+                        break;
+                    case 1:
+                        Intent showEvents = new Intent(getApplicationContext(),ShowEvents.class);
+                        startActivity(showEvents);
+                        break;
+                    case 2:
+                        Intent viewRequests = new Intent(getApplicationContext(),ViewEventRequests.class);
+                        startActivity(viewRequests);
+                        break;
+                    case 4:
+                        Intent login = new Intent(getApplicationContext(),LoginPage.class);
+                        startActivity(login);
+                        break;
+                }
             }
             @Override
             public boolean onButtonLongClick(@NonNull CircleMenuView view, int buttonIndex) {
@@ -107,6 +126,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("D","onButtonLongClickAnimationEnd|index: "+buttonIndex);
             }
         });
+        SharedPreferences preferences = getSharedPreferences("users",MODE_PRIVATE);
+        String username = preferences.getString("username", "");
+        String email = preferences.getString("email", "");
+
+        nameView.setText(username);
+        emailView.setText(email);
+
 
     }
 

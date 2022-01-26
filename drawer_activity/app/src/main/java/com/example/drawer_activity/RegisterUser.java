@@ -87,6 +87,8 @@ public class RegisterUser extends AppCompatActivity {
     }
     public void callLogin(View view)
     {
-
+        Intent login = new Intent(getApplicationContext(),LoginPage.class);
+        startActivity(login);
+        finish();
     }
 }
