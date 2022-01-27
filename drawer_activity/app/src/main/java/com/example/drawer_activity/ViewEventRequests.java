@@ -1,10 +1,24 @@
 package com.example.drawer_activity;
 
+import static android.content.ContentValues.TAG;
+import static com.android.volley.Request.Method.GET;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +43,63 @@ public class ViewEventRequests extends AppCompatActivity {
                 new EventRequests("chae","Party ho rhi he")};
 
         ArrayList list = new ArrayList(Arrays.asList(requests));
+
+
+        final JSONObject[] jsonObject = new JSONObject[1];
+        final JSONArray[] array = new JSONArray[1];
+
+        ArrayList<EventRequests> requestsList = new ArrayList<>();
+
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url =  HardCoded.apiLink+"/requestsDetails/"+UserID.user_id;
+        StringRequest stringRequest = new StringRequest(GET, url, new Response.Listener() {
+            @Override
+            public synchronized void onResponse(Object response)
+            {
+                try {
+                    jsonObject[0] = new JSONObject(response.toString());
+                    Log.d(TAG, "onResponse: "+ jsonObject[0].get("requestDetailedData"));
+                    array[0] = jsonObject[0].getJSONArray("requestDetailedData");
+                    Log.d(TAG, "onResponse: "+ array[0].toString());
+                    Log.d(TAG, "onResponse: "+array[0].length());
+                    for (int i = 0; i < array[0].length(); i++) {
+                        JSONObject eventObject = array[0].getJSONObject(i);
+                        requestsList.add(new EventRequests(eventObject.getString("eventName"),eventObject.getString("eventDesc")));
+                        Log.d(TAG, "onResponse: "+eventObject.toString());
+
+
+                    }
+                    customEventRequestAdapter requestAdapter = new customEventRequestAdapter(getApplicationContext(),R.layout.event_request_list,requestsList);
+                    listView.setAdapter(requestAdapter);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public synchronized void onErrorResponse(VolleyError error) {
+            }
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         customEventRequestAdapter adapter = new customEventRequestAdapter(this,R.layout.event_request_list,list);
         listView.setAdapter(adapter);

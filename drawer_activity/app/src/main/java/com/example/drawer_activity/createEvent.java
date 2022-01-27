@@ -33,7 +33,7 @@ public class createEvent extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
-        layout = findViewById(R.id.eventLayout);
+        layout = findViewById(R.id.InviteMemberMain);
         eventName = findViewById(R.id.event_name);
         eventDescription = findViewById(R.id.event_description);
         SharedPreferences pref = getSharedPreferences("users",MODE_PRIVATE);

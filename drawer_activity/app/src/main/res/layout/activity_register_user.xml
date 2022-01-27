@@ -5,7 +5,7 @@
     android:id="@+id/registerUserScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EAC235"
+    android:background="@drawable/gradient_background"
     android:orientation="vertical"
     android:weightSum="1"
     tools:context=".RegisterUser">
@@ -81,14 +81,13 @@
         android:layout_marginBottom="12dp"
         android:layout_weight="0.03"
         android:hint="Enter Password"
-        app:passwordToggleEnabled="true"
-        >
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/register_password"
             android:layout_width="match_parent"
-            android:inputType="textPassword"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

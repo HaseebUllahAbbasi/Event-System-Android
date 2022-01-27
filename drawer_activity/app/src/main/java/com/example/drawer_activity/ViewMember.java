@@ -4,12 +4,24 @@ import android.widget.ImageView;
 
 public class ViewMember
 {
+
     int img;
     String name;
+    String id;
 
-    public ViewMember(int img, String name) {
+    public ViewMember(int img, String name,String id)
+    {
         this.img = img;
         this.name = name;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getImg() {

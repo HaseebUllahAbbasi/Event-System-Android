@@ -24,10 +24,10 @@ public class CustomMemberAdapter extends ArrayAdapter<ViewMember> {
     }
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
     {
-        convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_request_list, parent, false);
+        convertView = LayoutInflater.from(getContext()).inflate(R.layout.viewallmemberlayout, parent, false);
         ViewMember request = list.get(position);
-        ImageView img =  convertView.findViewById(R.id.req_title);
-        TextView name = convertView.findViewById(R.id.req_desc);
+        ImageView img =  convertView.findViewById(R.id.profileImage_view);
+        TextView name = convertView.findViewById(R.id.member_name_view);
         img.setImageResource(request.getImg());
         name.setText(request.getName());
         return convertView;

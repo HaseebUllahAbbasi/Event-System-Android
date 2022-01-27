@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -25,7 +24,7 @@ import org.json.JSONObject;
 
 public class OneEvent extends AppCompatActivity {
 
-    TextView eventName, description,  planner, teamMembers, tasks, notes;
+    TextView eventName, description,  planner, teamMembers, tasks, notes, guests;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +32,11 @@ public class OneEvent extends AppCompatActivity {
 
         eventName = findViewById(R.id.one_event_name);
         description = findViewById(R.id.eventDesc_txt);
-        planner = findViewById(R.id.plannerID_txt);
+        planner = findViewById(R.id.plannerName);
         teamMembers = findViewById(R.id.teamMembers_txt);
         tasks = findViewById(R.id.tasksAssigned_txt);
         notes = findViewById(R.id.notes_txt);
-
+        guests = findViewById(R.id.guests_txt);
         Intent intent = getIntent();
         String id = intent.getStringExtra("_id");
         getEvent(id);
@@ -81,6 +80,7 @@ public class OneEvent extends AppCompatActivity {
 
                     case 1:
                         Intent member = new Intent(getApplicationContext(),ViewAllMembers.class);
+                        member.putExtra("id",id);
                         startActivity(member);
                         break;
 
@@ -134,10 +134,12 @@ public class OneEvent extends AppCompatActivity {
                     JSONArray teamsArray = event.getJSONArray("team");
                     JSONArray tasksArray = event.getJSONArray("tasks");
                     JSONArray notesArray = event.getJSONArray("notes");
+                    JSONArray guestsArray = event.getJSONArray("guestList");
 
                     teamMembers.setText(""+teamsArray.length());
                     tasks.setText(""+tasksArray.length());
                     notes.setText(""+notesArray.length());
+                    guests.setText(""+guestsArray.toString());
 
 
                 } catch (JSONException e) {

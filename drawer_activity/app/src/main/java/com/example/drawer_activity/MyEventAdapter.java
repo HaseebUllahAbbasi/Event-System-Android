@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,13 @@ public class MyEventAdapter extends RecyclerView.Adapter<MyEventAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, events.getId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, events.getEventName(), Toast.LENGTH_SHORT).show();
+                SharedPreferences preferences = context.getSharedPreferences("eventDetail",Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("eventid",events.getId());
+                editor.putString("eventname",events.getEventName());
+                editor.commit();
+                Log.d(TAG, "onClick: "+events.getId()+ " "+ events.getEventName());
                 Intent intent = new Intent(context,OneEvent.class);
                 intent.putExtra("_id",events.getId());
                 context.startActivity(intent);

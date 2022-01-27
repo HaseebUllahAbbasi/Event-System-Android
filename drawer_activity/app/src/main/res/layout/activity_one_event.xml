@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@drawable/grad_back3"
+    android:orientation="vertical"
     tools:context=".OneEvent">
 
     <TextView
@@ -12,7 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:fontFamily="@font/catamaran_bold"
         android:text="Event Name"
+        android:textColor="#EDE2E2"
         android:textSize="48sp"
         tools:layout_editor_absoluteX="179dp"
         tools:layout_editor_absoluteY="106dp" />
@@ -22,15 +25,20 @@
 
         android:layout_width="match_parent"
 
-        android:layout_height="290dp"
+        android:layout_height="350dp"
         android:layout_gravity="center"
-        app:cardCornerRadius="10dp">
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/grad_back_2"
+        app:cardCornerRadius="30dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/grad_back_2"
             android:orientation="vertical"
-            android:weightSum="8">
+            android:padding="10dp"
+            android:weightSum="10">
 
             <TextView
                 android:id="@+id/textView4"
@@ -47,18 +55,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1.5"
+                android:gravity="center_horizontal"
                 android:paddingStart="5dp"
                 android:text="description of the event"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/guestview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -68,7 +80,7 @@
                     android:textSize="18dp" />
 
                 <TextView
-                    android:id="@+id/plannerID_txt"
+                    android:id="@+id/plannerName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -76,12 +88,14 @@
                     android:gravity="right"
                     android:paddingRight="5dp"
                     android:text="TextView"
-                    android:textSize="14dp" />
+                    android:textSize="18dp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -110,6 +124,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -138,6 +154,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -166,7 +184,38 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1.5"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/guestView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/catamaran_bold"
+                    android:paddingStart="5dp"
+                    android:text="Guests"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/guests_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/catamaran_bold"
+                    android:gravity="right"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="2"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -179,13 +228,14 @@
 
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:outlineAmbientShadowColor="@color/teal_200"
+                    android:layout_weight="1.5"
+                    android:outlineAmbientShadowColor="@color/purple_200"
                     android:text="COMPLETE"
-                    android:textColor="#03DAC5"
+                    android:textColor="#157368"
                     android:textSize="20dp"
-                    app:cornerRadius="10dp"
-                    app:strokeColor="@color/teal_200"
+                    android:textStyle="bold"
+                    app:cornerRadius="5dp"
+                    app:strokeColor="#157368"
                     app:strokeWidth="3dp" />
 
 
@@ -199,8 +249,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="10dp"
         app:button_colors="@array/colors"
         app:button_icons="@array/oneEvent_Icons"
         app:icon_color="#FFFFFF" />

@@ -80,7 +80,7 @@ public class ShowEvents extends AppCompatActivity {
 
                     }
                     MyEventAdapter myEventAdapter = new MyEventAdapter(events,ShowEvents.this);
-                    Log.d(TAG, "onCreate: "+        Arrays.toString(events.toArray()));
+                    Log.d(TAG, "onCreate: "+   Arrays.toString(events.toArray()));
                     recyclerView.setAdapter(myEventAdapter);
 
 
