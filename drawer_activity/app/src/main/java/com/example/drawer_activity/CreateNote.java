@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-public class createNote extends AppCompatActivity {
+public class CreateNote extends AppCompatActivity {
 
     private static final String TAG =  "Note";
     TextInputEditText note_text;
