@@ -22,15 +22,6 @@
 
     <include layout="@layout/content_main" />
 
-    <com.ramotion.circlemenu.CircleMenuView
-        android:id="@+id/circle_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        app:button_colors="@array/colors"
-        app:button_icons="@array/icons"
-        app:icon_color="#FFFFFF"
-        android:layout_gravity="bottom|center" />
 
 
 
