@@ -129,9 +129,10 @@ exports.myEvents = catchAsyncErrors(async (req, res, next) => {
         })
 })
 exports.getEventByUserId = catchAsyncErrors(async (req, res, next) => {
-    const { id } = req.body;
+    const { id } = req.params;
     const events = await EventSchema.find();
-    const teamsLists = events.filter(event => {
+    const teamsLists = events.filter(event => 
+        {
         const listofOneTeam = event.team;
         if (event.userId == id)
             return event;

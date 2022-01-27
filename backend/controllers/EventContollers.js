@@ -126,9 +126,8 @@ exports.createEvent = catchAsyncErrors(async (req, res, next) => {
             eventCreated
         })
     }
-    catch(err)
-    {
-        
+    catch (err) {
+
         res.status(401).json({
             success: false,
             message: `event exists with name ${eventName}`,
@@ -327,20 +326,36 @@ exports.removeGuest = catchAsyncErrors(async (req, res, next) => {
 exports.sendRequestByName = catchAsyncErrors(async (req, res, next) => {
     const { plannerId, eventId, eventName, recipientName } = req.body;
     const foundUsers = await PersonSchema.find();
-    foundUser = foundUsers.filter(user => user.name == recipientName);
 
-    if (foundUser[0]) {
-        foundUser[0].requests.push({ id: eventId, name: eventName });
-        const updated = await PersonSchema.updateOne({ _id: foundUser[0]._id }, { requests: [...foundUser[0].requests] })
+    foundUser = foundUsers.filter(user => user.name.toLowerCase() == recipientName.toLowerCase());
+    const EventById = await EventSchema.findById({ _id: eventId });
+    if (foundUser[0]) 
+    {
+        if (EventById.userId == plannerId) 
+        {
 
-        res.status(200).json({
-            success: true,
-            foundUser
-        })
+            foundUser[0].requests.push({ id: eventId, name: eventName });
+            const updated = await PersonSchema.updateOne({ _id: foundUser[0]._id }, { requests: [...foundUser[0].requests] })
+
+            res.status(200).json({
+                success: true,
+                foundUser
+            })
+        }
+        else 
+        {
+
+            res.status(400).json({
+                success: false,
+                message: "You Are Not Admin"
+            })
+        }
+
     }
     else
-        res.status(402).json({
-            success: false
+        res.status(400).json({
+            success: false,
+            message: "User Not Found"
         })
 })
 
