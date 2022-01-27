@@ -55,16 +55,6 @@ public class ShowEvents extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        MyEvents[] MyEvents = new MyEvents[]{
-                new MyEvents("Avengers","2019 film",R.drawable.avenger),
-                new MyEvents("Venom","2018 film",R.drawable.venom),
-                new MyEvents("Batman Begins","2005 film",R.drawable.batman),
-                new MyEvents("Jumanji","2019 film",R.drawable.jumanji),
-                new MyEvents("Good Deeds","2012 film",R.drawable.good_deeds),
-                new MyEvents("Hulk","2003 film",R.drawable.hulk),
-                new MyEvents("Avatar","2009 film",R.drawable.avatar),
-        };
-
         final JSONObject[] jsonObject = new JSONObject[1];
         final JSONArray[] array = new JSONArray[1];
 

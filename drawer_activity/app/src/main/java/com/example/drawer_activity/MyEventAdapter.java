@@ -3,6 +3,7 @@ package com.example.drawer_activity;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +50,10 @@ public class MyEventAdapter extends RecyclerView.Adapter<MyEventAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, events.getEventName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, events.getId(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context,OneEvent.class);
+                intent.putExtra("_id",events.getId());
+                context.startActivity(intent);
             }
         });
     }
