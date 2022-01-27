@@ -44,7 +44,8 @@ public class OneEvent extends AppCompatActivity {
 
 
 
-        final CircleMenuView menu = findViewById(R.id.circle_menu);
+        final CircleMenuView menu = findViewById(R.id.circle_menu_one_event);
+        
         menu.setEventListener(new CircleMenuView.EventListener(){
             @Override
             public void onMenuOpenAnimationStart(@NonNull CircleMenuView view) {
@@ -70,22 +71,27 @@ public class OneEvent extends AppCompatActivity {
             @Override
             public void onButtonClickAnimationEnd(@NonNull CircleMenuView view, int index) {
                 Log.d("D","onButtonClickAnimationEnd|index: "+index);
-                switch (index){
+                Log.d(TAG, "onButtonClickAnimationEnd: To be implemented more options here");
+                switch (index)
+                {
                     case 0:
-                        Intent createEvent = new Intent(getApplicationContext(),createEvent.class);
-                        startActivity(createEvent);
+                        Intent task = new Intent(getApplicationContext(),ViewAllTasks.class);
+                        startActivity(task);
                         break;
+
                     case 1:
-                        Intent showEvents = new Intent(getApplicationContext(),ShowEvents.class);
-                        startActivity(showEvents);
+                        Intent member = new Intent(getApplicationContext(),ViewAllMembers.class);
+                        startActivity(member);
                         break;
+
                     case 2:
-                        Intent viewRequests = new Intent(getApplicationContext(),ViewEventRequests.class);
-                        startActivity(viewRequests);
+                        Intent note = new Intent(getApplicationContext(),ViewAllNotes.class);
+                        startActivity(note);
                         break;
-                    case 4:
-                        Intent login = new Intent(getApplicationContext(),LoginPage.class);
-                        startActivity(login);
+
+                    case 3:
+                        Intent guest = new Intent(getApplicationContext(),ViewAllGuests.class);
+                        startActivity(guest);
                         break;
                 }
             }
@@ -122,7 +128,7 @@ public class OneEvent extends AppCompatActivity {
                     JSONObject event = jsonObject[0].getJSONObject("event");
 
                     eventName.setText(event.get("eventName").toString());
-                    planner.setText(event.get("userId").toString());
+                    planner.setText(event.get("userName").toString());
                     description.setText(event.get("eventDesc").toString());
 
                     JSONArray teamsArray = event.getJSONArray("team");

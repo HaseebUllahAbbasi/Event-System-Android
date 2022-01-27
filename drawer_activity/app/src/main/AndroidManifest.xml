@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.drawer_activity">
+    package="com.example.drawer_activity" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -10,7 +10,19 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/event"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Drawer_activity">
+        android:theme="@style/Theme.Drawer_activity" >
+        <activity
+            android:name=".ViewAllNotes"
+            android:exported="true" />
+        <activity
+            android:name=".ViewAllGuests"
+            android:exported="true" />
+        <activity
+            android:name=".ViewAllTasks"
+            android:exported="true" />
+        <activity
+            android:name=".ViewAllMembers"
+            android:exported="true" />
         <activity
             android:name=".OneEvent"
             android:exported="true" />
@@ -46,7 +58,7 @@
             android:exported="true" />
         <activity
             android:name=".LoginPage"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,7 +75,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Drawer_activity.NoActionBar"></activity>
+            android:theme="@style/Theme.Drawer_activity.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"
