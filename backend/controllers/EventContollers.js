@@ -8,8 +8,44 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 exports.getMembersByEvent = catchAsyncErrors(async (req, res, next) => {
     const { eventId } = req.params;
     const event = await EventSchema.findById(eventId);
-    if (event) {
-        if (event.team.length == 0) {
+    if (event) 
+    {
+        if (event.team.length == 0) 
+        {
+            res.status(401).json(
+                {
+                    success: false,
+                    message: "No Team Members"
+                }
+            )
+        }
+        else {
+            
+            const team = event.team;
+            res.status(200).json({
+                success: true,
+                members: team.length,
+                team,
+            })
+        }
+
+    }
+    else {
+        res.status(404).json(
+            {
+                success: false,
+                message: "Not Found With Id"
+            }
+        )
+    }
+})
+exports.getMembersByEventWithPic = catchAsyncErrors(async (req, res, next) => {
+    const { eventId } = req.params;
+    const event = await EventSchema.findById(eventId);
+    if (event) 
+    {
+        if (event.team.length == 0) 
+        {
             res.status(401).json(
                 {
                     success: false,
@@ -19,7 +55,6 @@ exports.getMembersByEvent = catchAsyncErrors(async (req, res, next) => {
         }
         else {
             const team = event.team;
-
             res.status(200).json({
                 success: true,
                 members: team.length,
@@ -326,36 +361,48 @@ exports.removeGuest = catchAsyncErrors(async (req, res, next) => {
 exports.sendRequestByName = catchAsyncErrors(async (req, res, next) => {
     const { plannerId, eventId, eventName, recipientName } = req.body;
     const foundUsers = await PersonSchema.find();
+    foundUser = foundUsers.filter(user => user.name == recipientName);
+    if (foundUser[0]) {
 
-    foundUser = foundUsers.filter(user => user.name.toLowerCase() == recipientName.toLowerCase());
-    const EventById = await EventSchema.findById({ _id: eventId });
-    if (foundUser[0]) 
-    {
-        if (EventById.userId == plannerId) 
-        {
+        const eventById = await EventSchema.findById(eventId);
+        if (eventById) {
 
-            foundUser[0].requests.push({ id: eventId, name: eventName });
-            const updated = await PersonSchema.updateOne({ _id: foundUser[0]._id }, { requests: [...foundUser[0].requests] })
+            if (eventById.userId == plannerId) 
+            {
 
-            res.status(200).json({
-                success: true,
-                foundUser
-            })
+                foundUser[0].requests.push({ id: eventId, name: eventName });
+                const updated = await PersonSchema.updateOne({ _id: foundUser[0]._id }, { requests: [...foundUser[0].requests] })
+
+                res.status(200).json({
+                    success: true,
+                    foundUser
+                })
+
+            }
+            else {
+                res.status(400).json({
+                    success: false,
+                    message: "Not Authorized"
+                })
+
+
+            }
+
+
         }
-        else 
-        {
+        else {
 
-            res.status(400).json({
+            res.status(404).json({
                 success: false,
-                message: "You Are Not Admin"
+                message: "Event Not Found"
             })
-        }
 
+        }
     }
     else
-        res.status(400).json({
+        res.status(404).json({
             success: false,
-            message: "User Not Found"
+            message: "User Not Found" + recipientName
         })
 })
 
@@ -363,6 +410,7 @@ exports.sendRequest = catchAsyncErrors(async (req, res, next) => {
     const { plannerId, eventId, eventName, recipientId } = req.body;
     const foundUser = await PersonSchema.findById(recipientId);
     if (foundUser) {
+
 
         foundUser.requests.push({ id: eventId, name: eventName });
 

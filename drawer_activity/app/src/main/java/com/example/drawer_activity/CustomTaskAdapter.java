@@ -13,11 +13,11 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class CustomMemberAdapter extends ArrayAdapter<ViewMember> {
+public class CustomTaskAdapter  extends ArrayAdapter<TaskModel> {
 
-    List<ViewMember> list;
+    List<TaskModel> list;
 
-    public CustomMemberAdapter(@NonNull Context context, int resource, @NonNull List<ViewMember> objects)
+    public CustomTaskAdapter(@NonNull Context context, int resource, @NonNull List<TaskModel> objects)
     {
         super(context, resource, objects);
         list = objects;
@@ -25,12 +25,11 @@ public class CustomMemberAdapter extends ArrayAdapter<ViewMember> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
     {
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.viewallmemberlayout, parent, false);
-        ViewMember request = list.get(position);
-        ImageView img =  convertView.findViewById(R.id.profileImage_view);
-        TextView name = convertView.findViewById(R.id.member_name_view);
-        img.setImageResource(request.getImg());
-        name.setText(request.getName());
+        TaskModel request = list.get(position);
+        TextView task = convertView.findViewById(R.id.member_name_view);
+        TextView desc = convertView.findViewById(R.id.member_name_view);
+        task.setText(request.getTask());
+        desc.setText(request.getDescription());
         return convertView;
     }
 }
-

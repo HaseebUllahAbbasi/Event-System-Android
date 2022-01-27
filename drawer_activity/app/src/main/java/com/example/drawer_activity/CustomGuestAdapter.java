@@ -13,11 +13,11 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class CustomMemberAdapter extends ArrayAdapter<ViewMember> {
+public class CustomGuestAdapter extends ArrayAdapter<GuestModel> {
 
-    List<ViewMember> list;
+    List<GuestModel> list;
 
-    public CustomMemberAdapter(@NonNull Context context, int resource, @NonNull List<ViewMember> objects)
+    public CustomGuestAdapter(@NonNull Context context, int resource, @NonNull List<GuestModel> objects)
     {
         super(context, resource, objects);
         list = objects;
@@ -25,12 +25,14 @@ public class CustomMemberAdapter extends ArrayAdapter<ViewMember> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
     {
         convertView = LayoutInflater.from(getContext()).inflate(R.layout.viewallmemberlayout, parent, false);
-        ViewMember request = list.get(position);
+        GuestModel request = list.get(position);
         ImageView img =  convertView.findViewById(R.id.profileImage_view);
         TextView name = convertView.findViewById(R.id.member_name_view);
-        img.setImageResource(request.getImg());
-        name.setText(request.getName());
+        TextView number = convertView.findViewById(R.id.member_name_view);
+        img.setImageResource( request.getImage());
+        name.setText(request.getUserName());
+        number.setText(request.getPhoneNumber());
+
         return convertView;
     }
 }
-
