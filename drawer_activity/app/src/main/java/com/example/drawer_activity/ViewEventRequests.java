@@ -32,17 +32,17 @@ public class ViewEventRequests extends AppCompatActivity {
         setContentView(R.layout.activity_view_event_requests);
         listView = findViewById(R.id.listview);
 
-        EventRequests[] requests = new EventRequests[]{
-                new EventRequests("Party","Party ho rhi he"),
-                new EventRequests("Shadi","Party nhi rhi he"),
-                new EventRequests("birthday","birthday sb ki rhi he"),
-                new EventRequests("deathday","Party ho rhi he"),
-                new EventRequests("kuch bhe","Party ho rhi he"),
-                new EventRequests("treat","Party ho rhi he"),
-                new EventRequests("biscoot","Party ho rhi he"),
-                new EventRequests("chae","Party ho rhi he")};
-
-        ArrayList list = new ArrayList(Arrays.asList(requests));
+//        EventRequests[] requests = new EventRequests[]{
+//                new EventRequests("Party","Party ho rhi he"),
+//                new EventRequests("Shadi","Party nhi rhi he"),
+//                new EventRequests("birthday","birthday sb ki rhi he"),
+//                new EventRequests("deathday","Party ho rhi he"),
+//                new EventRequests("kuch bhe","Party ho rhi he"),
+//                new EventRequests("treat","Party ho rhi he"),
+//                new EventRequests("biscoot","Party ho rhi he"),
+//                new EventRequests("chae","Party ho rhi he")};
+//
+//        ArrayList list = new ArrayList(Arrays.asList(requests));
 
 
         final JSONObject[] jsonObject = new JSONObject[1];
@@ -87,21 +87,5 @@ public class ViewEventRequests extends AppCompatActivity {
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        customEventRequestAdapter adapter = new customEventRequestAdapter(this,R.layout.event_request_list,list);
-        listView.setAdapter(adapter);
     }
 }
