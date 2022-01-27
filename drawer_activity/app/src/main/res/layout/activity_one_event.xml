@@ -195,7 +195,7 @@
     </androidx.cardview.widget.CardView>
 
     <com.ramotion.circlemenu.CircleMenuView
-        android:id="@+id/circle_menu"
+        android:id="@+id/circle_menu_one_event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
@@ -204,5 +204,6 @@
         app:button_colors="@array/colors"
         app:button_icons="@array/oneEvent_Icons"
         app:icon_color="#FFFFFF" />
+
 
 </LinearLayout>
