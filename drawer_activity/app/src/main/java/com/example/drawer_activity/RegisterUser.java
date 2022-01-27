@@ -25,6 +25,7 @@ public class RegisterUser extends AppCompatActivity {
     TextInputEditText name,email,phone,password;
     LinearLayout layout;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
@@ -36,23 +37,21 @@ public class RegisterUser extends AppCompatActivity {
     }
     public void onRegister(View view)
     {
-        if(name.getText().toString().equals("") || email.getText().toString().equals("") ||
-                password.getText().toString().equals("") || name.getText().toString().equals(""))
+        if(name.getText().toString().equals("") || email.getText().toString().trim().equals("") ||
+                password.getText().toString().equals("") || name.getText().toString().trim().equals(""))
         {
             Snackbar.make(layout,"Error! Missing Fields", Snackbar.LENGTH_SHORT).show();
-
         }
         else {
+
             String postUrl = "https://glacial-ridge-23454.herokuapp.com/person";
             RequestQueue requestQueue = Volley.newRequestQueue(this);
-
             JSONObject postData = new JSONObject();
             try {
-                postData.put("name", name.getText().toString());
-                postData.put("number", phone.getText().toString());
-                postData.put("email", email.getText().toString());
-                postData.put("password", password.getText().toString());
-
+                postData.put("name", name.getText().toString().trim());
+                postData.put("number", phone.getText().toString().trim());
+                postData.put("email", email.getText().toString().trim());
+                postData.put("password", password.getText().toString().trim());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -61,7 +60,9 @@ public class RegisterUser extends AppCompatActivity {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
-                        if (response.getBoolean("success")) {
+                        if (response.getBoolean("success"))
+                        {
+                            Snackbar.make(layout, "Successful Registered New User ", Snackbar.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), LoginPage.class);
                             startActivity(intent);
                         } else {
@@ -77,8 +78,6 @@ public class RegisterUser extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     error.printStackTrace();
                     Snackbar.make(layout, "Error! User Already exist", Snackbar.LENGTH_SHORT).show();
-
-
                 }
             });
 

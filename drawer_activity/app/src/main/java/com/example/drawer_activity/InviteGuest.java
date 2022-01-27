@@ -22,8 +22,8 @@ public class InviteGuest extends AppCompatActivity {
 
     public void inviteGuest(View view)
     {
-        Log.d(TAG, "removeMember:  name "+ name.getText().toString());
-        Log.d(TAG, "removeMember: number "+ number.getText().toString());
+        Log.d(TAG, "removeMember:  name "+ name.getText().toString().trim());
+        Log.d(TAG, "removeMember: number "+ number.getText().toString().trim());
 
         Log.d(TAG, "inviteGuest: ");
 

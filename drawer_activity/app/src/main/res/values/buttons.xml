@@ -9,6 +9,15 @@
         <item>@drawable/ic_baseline_person_search_24</item>
         <item>@drawable/logout</item>
     </array>
+
+    <array name="oneEvent_Icons">
+        <item>@drawable/ic_add_white_24dp</item>
+        <item>@drawable/ic_baseline_home_24</item>
+        <item>@drawable/request</item>
+        <item>@drawable/ic_baseline_person_search_24</item>
+        <item>@drawable/logout</item>
+    </array>
+
     <!-- icons colors-->
     <array name="colors">
         <item>@android:color/holo_blue_light</item>

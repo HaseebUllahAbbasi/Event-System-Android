@@ -22,7 +22,7 @@ public class InviteMember extends AppCompatActivity {
 
     public void inviteMember(View view)
     {
-        Log.d(TAG, "removeMember: "+ name.getText().toString());
+        Log.d(TAG, "removeMember: "+ name.getText().toString().trim());
 
 
     }

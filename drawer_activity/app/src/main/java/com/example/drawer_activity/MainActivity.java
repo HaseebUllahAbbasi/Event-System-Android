@@ -25,12 +25,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.drawer_activity.databinding.ActivityMainBinding;
 import com.ramotion.circlemenu.CircleMenuView;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity
+{
     TextView nameView,emailView;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-
     private OptionsFabLayout fabWithOptions;
 
     @Override
@@ -41,10 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-
         setSupportActionBar(binding.appBarMain.toolbar);
-
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -63,9 +59,6 @@ public class MainActivity extends AppCompatActivity {
         View headerView = navigationView.getHeaderView(0);
         nameView =  headerView.findViewById(R.id.NameText_View);
         emailView =  headerView.findViewById(R.id.EmailTextView);
-
-
-
 
         final CircleMenuView menu = findViewById(R.id.circle_menu);
         menu.setEventListener(new CircleMenuView.EventListener(){

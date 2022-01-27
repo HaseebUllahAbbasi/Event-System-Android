@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -16,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
@@ -23,6 +26,7 @@ import org.json.JSONObject;
 
 public class LoginPage extends AppCompatActivity {
 
+    LinearLayout layout;
     TextInputEditText username,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,8 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
         username = findViewById(R.id.login_username);
         password = findViewById(R.id.login_password);
+        layout = findViewById(R.id.login_wrapper);
+
     }
     public void onLogin(View view)
     {
@@ -39,8 +45,8 @@ public class LoginPage extends AppCompatActivity {
 
         JSONObject postData = new JSONObject();
         try {
-            postData.put("name", username.getText().toString());
-            postData.put("password", password.getText().toString());
+            postData.put("name", username.getText().toString().trim());
+            postData.put("password", password.getText().toString().trim());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -56,6 +62,7 @@ public class LoginPage extends AppCompatActivity {
                 }
                 try {
                     if (response.getBoolean("success")) {
+
                         JSONObject user = response.getJSONObject("users");
                         SharedPreferences preferences = getSharedPreferences("users",MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
@@ -64,11 +71,24 @@ public class LoginPage extends AppCompatActivity {
                         editor.putString("userid",user.getString("_id"));
                         editor.putString("email", user.getString("email"));
                         editor.commit();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
+
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run()
+                            {
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+
+                            }
+                        },1500);
                     }
-                } catch (JSONException e) {
+                } catch (JSONException e)
+                {
+
+                    Snackbar.make(layout,"Wrong User Name or password",Snackbar.LENGTH_LONG).show();
                     e.printStackTrace();
+
                 }
                 System.out.println(response);
             }

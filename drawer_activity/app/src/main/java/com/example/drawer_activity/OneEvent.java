@@ -3,6 +3,7 @@ package com.example.drawer_activity;
 import static android.content.ContentValues.TAG;
 import static com.android.volley.Request.Method.GET;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.ramotion.circlemenu.CircleMenuView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +41,68 @@ public class OneEvent extends AppCompatActivity {
         Intent intent = getIntent();
         String id = intent.getStringExtra("_id");
         getEvent(id);
+
+
+
+        final CircleMenuView menu = findViewById(R.id.circle_menu);
+        menu.setEventListener(new CircleMenuView.EventListener(){
+            @Override
+            public void onMenuOpenAnimationStart(@NonNull CircleMenuView view) {
+                Log.d("D","onMenuOpenAnimationStart");
+            }
+            @Override
+            public void onMenuOpenAnimationEnd(@NonNull CircleMenuView view) {
+                Log.d("D","onMenuOpenAnimationEnd");
+            }
+            @Override
+            public void onMenuCloseAnimationStart(@NonNull CircleMenuView view) {
+                Log.d("D","onMenuCloseAnimationStart");
+            }
+            @Override
+            public void onMenuCloseAnimationEnd(@NonNull CircleMenuView view) {
+                Log.d("D","onMenuCloseAnimationEnd");
+            }
+            @Override
+            public void onButtonClickAnimationStart(@NonNull CircleMenuView view, int index) {
+                Log.d("D","onButtonClickAnimationStart|index: "+index);
+
+            }
+            @Override
+            public void onButtonClickAnimationEnd(@NonNull CircleMenuView view, int index) {
+                Log.d("D","onButtonClickAnimationEnd|index: "+index);
+                switch (index){
+                    case 0:
+                        Intent createEvent = new Intent(getApplicationContext(),createEvent.class);
+                        startActivity(createEvent);
+                        break;
+                    case 1:
+                        Intent showEvents = new Intent(getApplicationContext(),ShowEvents.class);
+                        startActivity(showEvents);
+                        break;
+                    case 2:
+                        Intent viewRequests = new Intent(getApplicationContext(),ViewEventRequests.class);
+                        startActivity(viewRequests);
+                        break;
+                    case 4:
+                        Intent login = new Intent(getApplicationContext(),LoginPage.class);
+                        startActivity(login);
+                        break;
+                }
+            }
+            @Override
+            public boolean onButtonLongClick(@NonNull CircleMenuView view, int buttonIndex) {
+                Log.d("D","onButtonLongClick|index: "+buttonIndex);
+                return true;
+            }
+            @Override
+            public void onButtonLongClickAnimationStart(@NonNull CircleMenuView view, int buttonIndex) {
+                Log.d("D","onButtonLongClickAnimationStart|index: "+buttonIndex);
+            }
+            @Override
+            public void onButtonLongClickAnimationEnd(@NonNull CircleMenuView view, int buttonIndex) {
+                Log.d("D","onButtonLongClickAnimationEnd|index: "+buttonIndex);
+            }
+        });
 
 
     }
