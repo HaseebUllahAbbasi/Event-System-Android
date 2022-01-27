@@ -15,7 +15,7 @@ router.route('/getEvents').get(getAllEvents);
 router.route('/notesOfEvent').post(getNotesOfEvent);
 router.route('/sendRequest').post(sendRequest);
 router.route('/assignTask').post(assignTask);
-router.route('/assignTask/:eventId').post(getTasksByEventId);
+router.route('/assignTask/:eventId').get(getTasksByEventId);
 router.route('/changeStatus').post(changeStatus);
 router.route('/changeDesc').post(changeDesc);
 router.route('/sendReqByName').post(sendRequestByName);
