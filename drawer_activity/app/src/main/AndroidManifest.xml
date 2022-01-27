@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/event"
+        android:icon="@drawable/eve"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/event"
+        android:roundIcon="@drawable/eve"
         android:supportsRtl="true"
         android:theme="@style/Theme.Drawer_activity" >
         <activity
