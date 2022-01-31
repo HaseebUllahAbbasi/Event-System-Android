@@ -139,7 +139,7 @@ public class OneEvent extends AppCompatActivity {
                     teamMembers.setText(""+teamsArray.length());
                     tasks.setText(""+tasksArray.length());
                     notes.setText(""+notesArray.length());
-                    guests.setText(""+guestsArray.toString());
+                    guests.setText(""+guestsArray.length());
 
 
                 } catch (JSONException e) {

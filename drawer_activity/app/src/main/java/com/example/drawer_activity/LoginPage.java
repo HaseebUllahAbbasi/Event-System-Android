@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 public class LoginPage extends AppCompatActivity {
 
     LinearLayout layout;
+    private ProgressBar spinner;
     TextInputEditText username,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +39,12 @@ public class LoginPage extends AppCompatActivity {
         username = findViewById(R.id.login_username);
         password = findViewById(R.id.login_password);
         layout = findViewById(R.id.login_wrapper);
+        spinner=(ProgressBar)findViewById(R.id.progressBar);
 
     }
     public void onLogin(View view)
     {
+        spinner.setVisibility(View.VISIBLE);
         Log.d(TAG, "onLogin: "+username.getText().toString() +" "+ password.getText().toString());
         String postUrl = "https://glacial-ridge-23454.herokuapp.com/login";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -64,7 +68,7 @@ public class LoginPage extends AppCompatActivity {
                 }
                 try {
                     if (response.getBoolean("success")) {
-
+                        spinner.setVisibility(View.INVISIBLE);
                         JSONObject user = response.getJSONObject("users");
                         SharedPreferences preferences = getSharedPreferences("users",MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
@@ -90,10 +94,15 @@ public class LoginPage extends AppCompatActivity {
                             }
                         },1500);
                     }
+                    else
+                    {
+                        spinner.setVisibility(View.INVISIBLE);
+                        Snackbar.make(layout,"Wrong Username or password",Snackbar.LENGTH_LONG).show();
+                    }
                 } catch (JSONException e)
                 {
-
-                    Snackbar.make(layout,"Wrong User Name or password",Snackbar.LENGTH_LONG).show();
+                    spinner.setVisibility(View.INVISIBLE);
+                    Snackbar.make(layout,"Error while Logging",Snackbar.LENGTH_LONG).show();
                     e.printStackTrace();
 
                 }
@@ -102,10 +111,13 @@ public class LoginPage extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                spinner.setVisibility(View.INVISIBLE);
+                Snackbar.make(layout,"Networ Error",Snackbar.LENGTH_LONG).show();
                 error.printStackTrace();
             }
         });
         requestQueue.add(jsonObjectRequest);
+
 
 
     }

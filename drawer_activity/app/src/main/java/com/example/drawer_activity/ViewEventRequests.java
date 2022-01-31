@@ -7,14 +7,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,11 +31,17 @@ import java.util.Arrays;
 public class ViewEventRequests extends AppCompatActivity {
 
     ListView listView;
+    Button acceptBtn,rejectBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_event_requests);
         listView = findViewById(R.id.listview);
+
+
+
+
 
 //        EventRequests[] requests = new EventRequests[]{
 //                new EventRequests("Party","Party ho rhi he"),
@@ -65,7 +76,7 @@ public class ViewEventRequests extends AppCompatActivity {
                     Log.d(TAG, "onResponse: "+array[0].length());
                     for (int i = 0; i < array[0].length(); i++) {
                         JSONObject eventObject = array[0].getJSONObject(i);
-                        requestsList.add(new EventRequests(eventObject.getString("eventName"),eventObject.getString("eventDesc")));
+                        requestsList.add(new EventRequests(eventObject.getString("eventName"),eventObject.getString("eventDesc"),eventObject.getString("_id")));
                         Log.d(TAG, "onResponse: "+eventObject.toString());
 
 

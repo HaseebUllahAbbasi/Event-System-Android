@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,6 +25,7 @@ public class RegisterUser extends AppCompatActivity {
 
     TextInputEditText name,email,phone,password;
     LinearLayout layout;
+    private ProgressBar spinner;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class RegisterUser extends AppCompatActivity {
         phone = findViewById(R.id.register_phone);
         password = findViewById(R.id.register_password);
         layout = findViewById(R.id.registerUserScreen);
+        spinner=(ProgressBar)findViewById(R.id.progressBar);
     }
     public void onRegister(View view)
     {
@@ -43,7 +46,7 @@ public class RegisterUser extends AppCompatActivity {
             Snackbar.make(layout,"Error! Missing Fields", Snackbar.LENGTH_SHORT).show();
         }
         else {
-
+            spinner.setVisibility(View.VISIBLE);
             String postUrl = "https://glacial-ridge-23454.herokuapp.com/person";
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             JSONObject postData = new JSONObject();
@@ -62,14 +65,19 @@ public class RegisterUser extends AppCompatActivity {
                     try {
                         if (response.getBoolean("success"))
                         {
+                            spinner.setVisibility(View.VISIBLE);
                             Snackbar.make(layout, "Successful Registered New User ", Snackbar.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), LoginPage.class);
                             startActivity(intent);
                         } else {
+                            spinner.setVisibility(View.VISIBLE);
+                            Snackbar.make(layout, "Error While Registering ", Snackbar.LENGTH_SHORT).show();
 
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Snackbar.make(layout, "Error While Registering ", Snackbar.LENGTH_SHORT).show();
+
                     }
                     System.out.println(response);
                 }
@@ -77,6 +85,7 @@ public class RegisterUser extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     error.printStackTrace();
+                    spinner.setVisibility(View.INVISIBLE);
                     Snackbar.make(layout, "Error! User Already exist", Snackbar.LENGTH_SHORT).show();
                 }
             });
