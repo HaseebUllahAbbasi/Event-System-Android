@@ -31,7 +31,6 @@ import java.util.Arrays;
 public class ViewEventRequests extends AppCompatActivity {
 
     ListView listView;
-    Button acceptBtn,rejectBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +53,13 @@ public class ViewEventRequests extends AppCompatActivity {
 //                new EventRequests("chae","Party ho rhi he")};
 //
 //        ArrayList list = new ArrayList(Arrays.asList(requests));
+    loadEventRequests();
 
 
+
+    }
+    public void loadEventRequests()
+    {
         final JSONObject[] jsonObject = new JSONObject[1];
         final JSONArray[] array = new JSONArray[1];
 
@@ -97,6 +101,5 @@ public class ViewEventRequests extends AppCompatActivity {
 
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
-
     }
 }

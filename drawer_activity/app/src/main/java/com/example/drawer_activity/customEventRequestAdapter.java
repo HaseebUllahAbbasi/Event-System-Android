@@ -50,6 +50,8 @@ public class customEventRequestAdapter extends ArrayAdapter<EventRequests> {
         layout = convertView.findViewById(R.id.viewRequestLayout);
         Button acceptBtn  = convertView.findViewById(R.id.acceptButton);
         acceptBtn.setTag(position);
+        Button rejectBtn =  convertView.findViewById(R.id.rejectButton);
+        rejectBtn.setTag(position);
         //convertView.setTag();
                 acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +75,46 @@ public class customEventRequestAdapter extends ArrayAdapter<EventRequests> {
                     public void onResponse(JSONObject response) {
                         System.out.println(response);
                         Toast.makeText(getContext(), "Request Accepted", Toast.LENGTH_SHORT).show();
+//                        ViewEventRequests requests = new ViewEventRequests();
+//                        requests.loadEventRequests();
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                        error.printStackTrace();
+                    }
+                });
+
+                requestQueue.add(jsonObjectRequest);
+            }
+        });
+        rejectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /// Log.d(TAG, "onClick: "+v.getParent().toString());
+                String postUrl = HardCoded.apiLink+"/cancelRequest";
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+
+                JSONObject postData = new JSONObject();
+                try {
+                    postData.put("userId", UserID.user_id);
+                    postData.put("eventId", list.get(Integer.parseInt(acceptBtn.getTag().toString())).getEventId());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, postData, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response);
+                        Toast.makeText(getContext(), "Request Rejected", Toast.LENGTH_SHORT).show();
+//                        ViewEventRequests requests = new ViewEventRequests();
+//                        requests.loadEventRequests();
 
                     }
                 }, new Response.ErrorListener() {
@@ -90,4 +132,6 @@ public class customEventRequestAdapter extends ArrayAdapter<EventRequests> {
         return convertView;
 
     }
+
+
 }
