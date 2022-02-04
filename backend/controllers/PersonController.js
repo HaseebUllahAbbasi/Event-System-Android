@@ -631,3 +631,8 @@ const verifyImage = (image) => {
 
 };
 
+
+exports.checkValidUser  =  catchAsyncErrors(async (req, res, next) => {
+    // soon will be added 
+})
+
