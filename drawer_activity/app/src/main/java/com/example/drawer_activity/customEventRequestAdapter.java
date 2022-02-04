@@ -113,9 +113,8 @@ public class customEventRequestAdapter extends ArrayAdapter<EventRequests> {
                     public void onResponse(JSONObject response) {
                         System.out.println(response);
                         Toast.makeText(getContext(), "Request Rejected", Toast.LENGTH_SHORT).show();
-//                        ViewEventRequests requests = new ViewEventRequests();
-//                        requests.loadEventRequests();
-
+                        ViewEventRequests requests = new ViewEventRequests();
+                        requests.loadEventRequests();
                     }
                 }, new Response.ErrorListener() {
                     @Override

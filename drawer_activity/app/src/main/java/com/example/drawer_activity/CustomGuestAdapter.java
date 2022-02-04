@@ -24,11 +24,11 @@ public class CustomGuestAdapter extends ArrayAdapter<GuestModel> {
     }
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
     {
-        convertView = LayoutInflater.from(getContext()).inflate(R.layout.viewallmemberlayout, parent, false);
+        convertView = LayoutInflater.from(getContext()).inflate(R.layout.view_all_guests_layout, parent, false);
         GuestModel request = list.get(position);
-        ImageView img =  convertView.findViewById(R.id.profileImage_view);
-        TextView name = convertView.findViewById(R.id.member_name_view);
-        TextView number = convertView.findViewById(R.id.member_name_view);
+        ImageView img =  convertView.findViewById(R.id.guest_profile_image);
+        TextView name = convertView.findViewById(R.id.guest_name);
+        TextView number = convertView.findViewById(R.id.guest_number);
         img.setImageResource( request.getImage());
         name.setText(request.getUserName());
         number.setText(request.getPhoneNumber());

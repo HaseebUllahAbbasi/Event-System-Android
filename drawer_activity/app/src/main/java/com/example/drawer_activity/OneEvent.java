@@ -91,6 +91,7 @@ public class OneEvent extends AppCompatActivity {
 
                     case 3:
                         Intent guest = new Intent(getApplicationContext(),ViewAllGuests.class);
+                        guest.putExtra("id",id);
                         startActivity(guest);
                         break;
                 }
