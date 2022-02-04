@@ -6,12 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/grad_back3"
-    tools:context=".ViewEventRequests">
+    android:weightSum="1"
+    tools:context=".ViewEventRequests"
+    android:orientation="vertical">
 
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:dividerHeight="10dp"
         android:padding="8dp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/not_found_requests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:layout_weight="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="not_found_two.json"
+        app:lottie_loop="true" />
 </LinearLayout>

@@ -13,8 +13,8 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class CustomTaskAdapter  extends ArrayAdapter<TaskModel> {
-
+public class CustomTaskAdapter extends ArrayAdapter<TaskModel>
+{
     List<TaskModel> list;
 
     public CustomTaskAdapter(@NonNull Context context, int resource, @NonNull List<TaskModel> objects)

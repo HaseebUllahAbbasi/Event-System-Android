@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -31,15 +32,20 @@ import java.util.Arrays;
 public class ViewEventRequests extends AppCompatActivity {
 
     ListView listView;
+    View view_1 ;
+    View view_2 ;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_event_requests);
         listView = findViewById(R.id.listview);
 
-
-
+        view_1  =    findViewById(R.id.not_found_requests);
+        view_2  =   findViewById(R.id.listview);
 
 
 //        EventRequests[] requests = new EventRequests[]{
@@ -82,24 +88,54 @@ public class ViewEventRequests extends AppCompatActivity {
                         JSONObject eventObject = array[0].getJSONObject(i);
                         requestsList.add(new EventRequests(eventObject.getString("eventName"),eventObject.getString("eventDesc"),eventObject.getString("_id")));
                         Log.d(TAG, "onResponse: "+eventObject.toString());
-
-
                     }
+
                     customEventRequestAdapter requestAdapter = new customEventRequestAdapter(getApplicationContext(),R.layout.event_request_list,requestsList);
                     listView.setAdapter(requestAdapter);
 
 
-                } catch (JSONException e) {
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                    params.weight = 1;
+                    view_1.setLayoutParams(params);
+
+                    params = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                    params.weight = 0;
+                    view_2.setLayoutParams(params);
+
+
+
+                } catch (JSONException e) 
+                {
+                    
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
+        }, new Response.ErrorListener()
+        {
             @Override
-            public synchronized void onErrorResponse(VolleyError error) {
+            public synchronized void onErrorResponse(VolleyError error) 
+            {
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                params.weight = 0;
+                view_1.setLayoutParams(params);
+
+                params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                params.weight = 1;
+                view_2.setLayoutParams(params);
+
+
+                Log.d(TAG, "onErrorResponse: 401 now display the icon");
+                
             }
         });
 
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
+
     }
 }
