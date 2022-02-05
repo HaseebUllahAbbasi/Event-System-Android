@@ -60,7 +60,7 @@ public class ShowEvents extends AppCompatActivity {
 
         ArrayList<MyEvents> events = new ArrayList<>();
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url =  HardCoded.apiLink+"/getEvents";
+        String url =  HardCoded.apiLink+"/getEventByUser/"+UserID.user_id;
         StringRequest stringRequest = new StringRequest(GET, url, new Response.Listener() {
             @Override
             public synchronized void onResponse(Object response)
