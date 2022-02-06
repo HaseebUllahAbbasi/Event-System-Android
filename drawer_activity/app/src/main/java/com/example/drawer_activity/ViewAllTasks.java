@@ -18,6 +18,5 @@ public class ViewAllTasks extends AppCompatActivity {
     {
         Intent intent = new Intent(this,AssignTask.class);
         startActivity(intent);
-
     }
 }
