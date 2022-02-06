@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -60,7 +59,7 @@ public class ShowEvents extends AppCompatActivity {
 
         ArrayList<MyEvents> events = new ArrayList<>();
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url =  HardCoded.apiLink+"/getEventByUser/"+UserID.user_id;
+        String url =  HardCoded.apiLink+"/getEventByUser/"+ GlobalValues.user_id;
         StringRequest stringRequest = new StringRequest(GET, url, new Response.Listener() {
             @Override
             public synchronized void onResponse(Object response)

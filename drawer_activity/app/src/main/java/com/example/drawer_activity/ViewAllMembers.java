@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 import static com.android.volley.Request.Method.GET;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,11 +32,13 @@ public class ViewAllMembers extends AppCompatActivity
 
 
     ListView listView;
+    CoordinatorLayout layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_all_members2);
         listView = findViewById(R.id.memberListView);
+        layout = findViewById(R.id.view_All_Members_Main);
 
 
         Intent intent = getIntent();
@@ -65,7 +69,7 @@ public class ViewAllMembers extends AppCompatActivity
 
                     }
                     CustomMemberAdapter memberAdapter = new CustomMemberAdapter(getApplicationContext(),R.layout.viewallmemberlayout,events);
-                    Log.d(TAG, "onCreate: "+        Arrays.toString(events.toArray()));
+                    Log.d(TAG, "onCreate: "+    Arrays.toString(events.toArray()));
                     listView.setAdapter(memberAdapter);
 
 
@@ -88,8 +92,14 @@ public class ViewAllMembers extends AppCompatActivity
 
     public void addNewMember(View view)
     {
-        Intent intent = new Intent(this,InviteMember.class);
-        startActivity(intent);
+        if(!GlobalValues.eventStatus) {
+            Intent intent = new Intent(this, InviteMember.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Snackbar.make(layout,"Event is Already Completed", Snackbar.LENGTH_LONG).show();
+        }
 
     }
 }

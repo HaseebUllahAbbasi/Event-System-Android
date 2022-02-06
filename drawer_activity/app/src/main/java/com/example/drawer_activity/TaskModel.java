@@ -3,22 +3,23 @@ package com.example.drawer_activity;
 public class TaskModel
 {
     String id;
-    String task;
-    String description;
+    String name;
+    String taskdescription;
+    Boolean taskStatus;
 
-    public TaskModel(String id, String task, String description) {
+    public TaskModel(String id, String name, String taskdescription,Boolean taskStatus) {
         this.id = id;
-        this.task = task;
-        this.description = description;
+        this.name = name;
+        this.taskdescription = taskdescription;
+        this.taskStatus = taskStatus;
     }
 
-    @Override
-    public String toString() {
-        return "TaskModel{" +
-                "id='" + id + '\'' +
-                ", task='" + task + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+    public Boolean getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(Boolean taskStatus) {
+        this.taskStatus = taskStatus;
     }
 
     public String getId() {
@@ -29,19 +30,19 @@ public class TaskModel
         this.id = id;
     }
 
-    public String getTask() {
-        return task;
+    public String getName() {
+        return name;
     }
 
-    public void setTask(String task) {
-        this.task = task;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
-        return description;
+        return taskdescription;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.taskdescription = description;
     }
 }

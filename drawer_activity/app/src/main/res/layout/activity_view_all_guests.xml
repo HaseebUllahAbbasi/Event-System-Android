@@ -15,12 +15,22 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="All Guests"
+        android:textColor="#090909"
         android:textSize="34sp" />
 
-    <ListView
-        android:id="@+id/guestListview"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="#ED274081"
+        app:cardCornerRadius="20dp">
+
+        <ListView
+            android:id="@+id/guestListview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" />
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

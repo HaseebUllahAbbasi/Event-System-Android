@@ -1,9 +1,10 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/view_All_Tasks_Main"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".ViewAllTasks">
 
 
@@ -13,13 +14,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="All Tasks"
+        android:textColor="#0B0A0A"
         android:textSize="34sp" />
 
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="50dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -30,4 +27,19 @@
         android:layout_marginBottom="16dp"
         android:onClick="addNewTask"
         app:srcCompat="@android:drawable/ic_input_add" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:background="#CFB00F"
+        android:backgroundTint="#ED274081"
+        app:cardCornerRadius="20dp">
+
+        <ListView
+            android:id="@+id/tasks_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" />
+    </androidx.cardview.widget.CardView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

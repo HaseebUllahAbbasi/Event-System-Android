@@ -15,15 +15,22 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="All Members"
-        android:textColor="#03A9F4"
+        android:textColor="#0C0C0C"
         android:textSize="34sp" />
 
-    <ListView
-        android:id="@+id/memberListView"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
-        android:background="@drawable/gradient_background" />
+        android:backgroundTint="#ED274081"
+        app:cardCornerRadius="20dp">
+
+        <ListView
+            android:id="@+id/memberListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" />
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

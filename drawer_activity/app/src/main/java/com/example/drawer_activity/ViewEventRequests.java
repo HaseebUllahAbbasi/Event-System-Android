@@ -8,26 +8,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ViewEventRequests extends AppCompatActivity {
 
@@ -73,7 +67,7 @@ public class ViewEventRequests extends AppCompatActivity {
 
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url =  HardCoded.apiLink+"/requestsDetails/"+UserID.user_id;
+        String url =  HardCoded.apiLink+"/requestsDetails/"+ GlobalValues.user_id;
         StringRequest stringRequest = new StringRequest(GET, url, new Response.Listener() {
             @Override
             public synchronized void onResponse(Object response)

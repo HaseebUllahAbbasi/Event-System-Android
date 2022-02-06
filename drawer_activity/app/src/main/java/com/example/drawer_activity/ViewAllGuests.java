@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 import static com.android.volley.Request.Method.GET;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +32,7 @@ public class ViewAllGuests extends AppCompatActivity {
     TextView guestName,guestNumber;
     ListView listView;
     String id;
+    CoordinatorLayout layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +40,11 @@ public class ViewAllGuests extends AppCompatActivity {
         guestName = findViewById(R.id.guest_name);
         guestNumber = findViewById(R.id.guest_number);
         listView  =findViewById(R.id.guestListview);
+        layout = findViewById(R.id.view_All_Guests_Main);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
+        GlobalValues.eventId =id;
 
         final JSONObject[] jsonObject = new JSONObject[1];
         final JSONArray[] array = new JSONArray[1];
@@ -59,7 +64,7 @@ public class ViewAllGuests extends AppCompatActivity {
                     Log.d(TAG, "onResponse: "+array[0].length());
                     for (int i = 0; i < array[0].length(); i++) {
                         JSONObject eventObject = array[0].getJSONObject(i);
-                        guests.add(new GuestModel(R.drawable.image1,eventObject.getString("name"),eventObject.getString("number")));
+                        guests.add(new GuestModel(R.drawable.image1,eventObject.getString("name"),eventObject.getString("number"),eventObject.getString("_id")));
                         Log.d(TAG, "onResponse: "+eventObject.toString());
 
 
@@ -85,9 +90,15 @@ public class ViewAllGuests extends AppCompatActivity {
 
     public void addNewGuest(View view)
     {
-        Intent intent = new Intent(this,InviteGuest.class);
-        intent.putExtra("eventid",id);
-        startActivity(intent);
+        if(!GlobalValues.eventStatus) {
+            Intent intent = new Intent(this, InviteGuest.class);
+            intent.putExtra("eventid", id);
+            startActivity(intent);
+        }
+        else
+        {
+            Snackbar.make(layout,"Event is Already Completed", Snackbar.LENGTH_LONG).show();
+        }
 
     }
 }

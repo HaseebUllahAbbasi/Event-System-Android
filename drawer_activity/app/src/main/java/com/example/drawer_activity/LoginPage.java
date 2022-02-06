@@ -77,8 +77,8 @@ public class LoginPage extends AppCompatActivity {
                         editor.putString("userid",user.getString("_id"));
                         editor.putString("email", user.getString("email"));
 
-                        UserID.user_id = user.getString("_id");
-                        UserID.user_name = user.getString("name");
+                        GlobalValues.user_id = user.getString("_id");
+                        GlobalValues.user_name = user.getString("name");
 
 
                         editor.commit();

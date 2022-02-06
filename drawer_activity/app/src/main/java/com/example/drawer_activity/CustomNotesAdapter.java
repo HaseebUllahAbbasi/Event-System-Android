@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,41 +24,42 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class CustomGuestAdapter extends ArrayAdapter<GuestModel> {
-
-    List<GuestModel> list;
-    Button removeGuest;
-
-    public CustomGuestAdapter(@NonNull Context context, int resource, @NonNull List<GuestModel> objects)
-    {
+public class CustomNotesAdapter extends ArrayAdapter<NotesModel> {
+    List<NotesModel> list;
+    Button removeButton;
+    public CustomNotesAdapter(@NonNull Context context, int resource, @NonNull List<NotesModel> objects) {
         super(context, resource, objects);
-        list = objects;
+        this.list = objects;
     }
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
-    {
-        convertView = LayoutInflater.from(getContext()).inflate(R.layout.view_all_guests_layout, parent, false);
-        GuestModel request = list.get(position);
-        ImageView img =  convertView.findViewById(R.id.guest_profile_image);
-        TextView name = convertView.findViewById(R.id.guest_name);
-        TextView number = convertView.findViewById(R.id.guest_number);
-        removeGuest = convertView.findViewById(R.id.remove_guest_btn);
-        img.setImageResource( request.getImage());
-        name.setText(request.getUserName());
-        number.setText(request.getPhoneNumber());
-        removeGuest.setTag(position);
 
-        removeGuest.setOnClickListener(new View.OnClickListener() {
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        convertView = LayoutInflater.from(getContext()).inflate(R.layout.view_all_note_layout, parent, false);
+        NotesModel note = list.get(position);
+
+        TextView note_text = convertView.findViewById(R.id.note_num);
+        TextView note_desc = convertView.findViewById(R.id.note_desc);
+        removeButton = convertView.findViewById(R.id.remove_note_btn);
+
+        note_text.setText("Note "+(position+1));
+        note_desc.setText(note.getNoteText());
+
+        removeButton.setTag(position);
+
+        removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String postUrl = HardCoded.apiLink+"/removeGuest";
+                String postUrl = HardCoded.apiLink+"/removeNote";
                 RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
-                System.out.println("btn tag : "+v.getTag());
+
                 JSONObject postData = new JSONObject();
                 try {
                     postData.put("plannerId", GlobalValues.user_id);
-                    postData.put("eventId", GlobalValues.eventId);
-                    postData.put("guestId",list.get(Integer.parseInt(v.getTag().toString())).getGuestId());
+                    postData.put("noteId", list.get(Integer.parseInt(v.getTag().toString())).getNoteId());
+                    postData.put("eventId",GlobalValues.eventId);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -68,16 +68,8 @@ public class CustomGuestAdapter extends ArrayAdapter<GuestModel> {
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println(response);
-                        try {
-                            if(response.getBoolean("success"))
-                                Toast.makeText(getContext(), "Guest Removed", Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(getContext(), "You are not planner of this event, so you can't remove guests", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Note has been Removed", Toast.LENGTH_SHORT).show();
 
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override

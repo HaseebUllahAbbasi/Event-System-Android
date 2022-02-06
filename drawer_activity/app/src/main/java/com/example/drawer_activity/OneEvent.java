@@ -9,11 +9,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ramotion.circlemenu.CircleMenuView;
@@ -24,6 +28,7 @@ import org.json.JSONObject;
 
 public class OneEvent extends AppCompatActivity {
 
+    String id;
     TextView eventName, description,  planner, teamMembers, tasks, notes, guests;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +43,9 @@ public class OneEvent extends AppCompatActivity {
         notes = findViewById(R.id.notes_txt);
         guests = findViewById(R.id.guests_txt);
         Intent intent = getIntent();
-        String id = intent.getStringExtra("_id");
+        id = intent.getStringExtra("_id");
         getEvent(id);
+
 
 
 
@@ -75,6 +81,7 @@ public class OneEvent extends AppCompatActivity {
                 {
                     case 0:
                         Intent task = new Intent(getApplicationContext(),ViewAllTasks.class);
+                        task.putExtra("id",id);
                         startActivity(task);
                         break;
 
@@ -131,11 +138,13 @@ public class OneEvent extends AppCompatActivity {
                     eventName.setText(event.get("eventName").toString());
                     planner.setText(event.get("userName").toString());
                     description.setText(event.get("eventDesc").toString());
-
+                    GlobalValues.eventStatus =  event.getBoolean("eventStatus");
+                    GlobalValues.eventId = event.getString("_id");
                     JSONArray teamsArray = event.getJSONArray("team");
                     JSONArray tasksArray = event.getJSONArray("tasks");
                     JSONArray notesArray = event.getJSONArray("notes");
                     JSONArray guestsArray = event.getJSONArray("guestList");
+
 
                     teamMembers.setText(""+teamsArray.length());
                     tasks.setText(""+tasksArray.length());
@@ -155,6 +164,40 @@ public class OneEvent extends AppCompatActivity {
 
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
+    }
+
+    public void completeEvent(View view)
+    {
+        String postUrl = HardCoded.apiLink+"/changeStatus";
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("plannerId", GlobalValues.user_id);
+            postData.put("eventId", id);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, postData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                System.out.println(response);
+                Toast.makeText(getApplicationContext(), "Event Completed", Toast.LENGTH_SHORT).show();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                Toast.makeText(getApplicationContext(), "You have not created this event", Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+            }
+        });
+
+        requestQueue.add(jsonObjectRequest);
     }
 
 }

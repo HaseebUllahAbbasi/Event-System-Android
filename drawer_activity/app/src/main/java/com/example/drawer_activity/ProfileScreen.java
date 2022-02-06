@@ -16,7 +16,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,7 +39,7 @@ public class ProfileScreen extends AppCompatActivity
 
         final JSONObject[] jsonObject = new JSONObject[1];
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = HardCoded.apiLink+"/person/"+UserID.user_id;
+        String url = HardCoded.apiLink+"/person/"+ GlobalValues.user_id;
         StringRequest stringRequest = new StringRequest(GET, url, new Response.Listener() {
             @Override
             public synchronized void onResponse(Object response)

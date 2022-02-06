@@ -229,6 +229,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1.5"
+                    android:onClick="completeEvent"
                     android:outlineAmbientShadowColor="@color/purple_200"
                     android:text="COMPLETE"
                     android:textColor="#157368"

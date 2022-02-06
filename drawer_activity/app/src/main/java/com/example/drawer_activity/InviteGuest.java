@@ -49,7 +49,7 @@ public class InviteGuest extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         Log.d(TAG, "inviteMember: "+name.getText().toString());
-        Log.d(TAG, "inviteMember: "+UserID.user_id);
+        Log.d(TAG, "inviteMember: "+ GlobalValues.user_id);
 
 
         JSONObject postData = new JSONObject();
@@ -57,7 +57,7 @@ public class InviteGuest extends AppCompatActivity {
             postData.put("guestName", name.getText().toString());
             postData.put("guestNumber", number.getText().toString());
             postData.put("eventId", eventid);
-            postData.put("plannerId", UserID.user_id);
+            postData.put("plannerId", GlobalValues.user_id);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -67,7 +67,14 @@ public class InviteGuest extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 System.out.println(response);
-                Snackbar.make(layout,"Guest Has been invited",Snackbar.LENGTH_LONG).show();
+                try {
+                    if(response.getBoolean("success"))
+                        Snackbar.make(layout,"Guest Has been invited",Snackbar.LENGTH_LONG).show();
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
         }, new Response.ErrorListener() {

@@ -2,10 +2,11 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
     android:id="@+id/view_All_Notes_Main"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical"
     tools:context=".ViewAllNotes">
 
 
@@ -15,12 +16,22 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="All Notes"
+        android:textColor="#070707"
         android:textSize="34sp" />
 
-    <ListView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="684dp"
-        android:layout_marginTop="50dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="#ED274081"
+        app:cardCornerRadius="20dp">
+
+        <ListView
+            android:id="@+id/notes_listView"
+            android:layout_width="match_parent"
+            android:layout_height="684dp"
+            android:layout_marginTop="10dp" />
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

@@ -45,14 +45,14 @@ public class InviteMember extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         Log.d(TAG, "inviteMember: "+name.getText().toString());
-        Log.d(TAG, "inviteMember: "+UserID.user_id);
+        Log.d(TAG, "inviteMember: "+ GlobalValues.user_id);
         Log.d(TAG, "inviteMember: "+eventID);
         Log.d(TAG, "inviteMember: "+eventName);
 
         JSONObject postData = new JSONObject();
         try {
             postData.put("recipientName", name.getText().toString());
-            postData.put("plannerId", UserID.user_id);
+            postData.put("plannerId", GlobalValues.user_id);
             postData.put("eventId", eventID);
             postData.put("eventName", eventName);
 

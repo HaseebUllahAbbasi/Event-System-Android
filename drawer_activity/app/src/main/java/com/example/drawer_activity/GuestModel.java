@@ -3,11 +3,13 @@ package com.example.drawer_activity;
 public class GuestModel
 {
     int image;
+    String guestId;
 
-    public GuestModel(int image, String userName, String phoneNumber) {
+    public GuestModel(int image, String userName, String phoneNumber,String guestId) {
         this.image = image;
         this.userName = userName;
         this.phoneNumber = phoneNumber;
+        this.guestId = guestId;
     }
 
     public int getImage() {
@@ -25,6 +27,14 @@ public class GuestModel
                 ", userName='" + userName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
+    }
+
+    public String getGuestId() {
+        return guestId;
+    }
+
+    public void setGuestId(String guestId) {
+        this.guestId = guestId;
     }
 
     String userName;
