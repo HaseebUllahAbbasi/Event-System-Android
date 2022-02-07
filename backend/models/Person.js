@@ -7,12 +7,18 @@ const PersonSchema = new mongoose.Schema(
             maxlength: [30, "Your Name cannot exceed 30 charachters"],
             unique:[true,"User Already Exists with Name"]
         },
+        bio:
+        {
+            type: String,
+            maxlength: [50, "Your Bio cannot exceed 50 charachters"],
+            default:"Hi There, I am Using Event Planner"
+        } ,
         email:
         {
             type: String,
             required: [true, "please Enter Email"],
-            maxlength: [50, "Your Name cannot exceed 50 charachters"],
-            unique:[true,"User Already Exists with Email"]
+            maxlength: [50, "Your Email cannot exceed 50 charachters"],
+            unique:[true,"Email Already Exists "]
         },
         number:
         {
@@ -31,10 +37,6 @@ const PersonSchema = new mongoose.Schema(
             type: String,
             required: [true, "please Enter Profile"]
         },
-        desc:{
-            type:String
-        },
-        
         requests:[],
         member:[],
         tasks:[],
