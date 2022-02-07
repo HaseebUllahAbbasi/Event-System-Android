@@ -130,9 +130,9 @@ exports.myEvents = catchAsyncErrors(async (req, res, next) => {
 })
 exports.getEventByUserId = catchAsyncErrors(async (req, res, next) => {
     const { id } = req.params;
+
     const events = await EventSchema.find();
-    const teamsLists = events.filter(event => 
-        {
+    const teamsLists = events.filter(event => {
         const listofOneTeam = event.team;
         if (event.userId == id)
             return event;
@@ -190,12 +190,11 @@ exports.findByName = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
-exports.changeData = catchAsyncErrors(async (req, res, next) => 
-{
+exports.changeData = catchAsyncErrors(async (req, res, next) => {
     const { id, name, email, number, desc } = req.body;
     const updateUserData =
     {
-        name, password, email, number,desc
+        name, password, email, number, desc
     };
 
     try {
@@ -227,13 +226,12 @@ exports.changeData = catchAsyncErrors(async (req, res, next) =>
 
 })
 
-exports.changeDescription = catchAsyncErrors(async (req, res, next) => 
-{
+exports.changeDescription = catchAsyncErrors(async (req, res, next) => {
     const { id, desc } = req.body;
-    
+
 
     try {
-        const updated = await PersonSchema.findByIdAndUpdate({_id: id}, {desc: desc})
+        const updated = await PersonSchema.findByIdAndUpdate({ _id: id }, { desc: desc })
 
         if (updated) {
             res.status(200).json({
@@ -261,13 +259,12 @@ exports.changeDescription = catchAsyncErrors(async (req, res, next) =>
     }
 
 })
-exports.changePassword = catchAsyncErrors(async (req, res, next) => 
-{
+exports.changePassword = catchAsyncErrors(async (req, res, next) => {
     const { id, desc } = req.body;
-    
+
 
     try {
-        const updated = await PersonSchema.findByIdAndUpdate({_id: id}, {desc: desc})
+        const updated = await PersonSchema.findByIdAndUpdate({ _id: id }, { desc: desc })
 
         if (updated) {
             res.status(200).json({
@@ -482,13 +479,20 @@ exports.completeTasks = catchAsyncErrors(async (req, res, next) => {
     const { taskId, userId } = req.body;
     const foundTask = await TasksSchema.findById(taskId);
     foundTask.taskStatus = true;
-    await TasksSchema.updateOne({ _id: taskId }, { taskStatus: true });
+    if (foundTask.assignTo == userId) {
+        await TasksSchema.updateOne({ _id: taskId }, { taskStatus: true });
 
-    res.status(200).json({
-        success: true,
-        foundTask
-
-    })
+        res.status(200).json({
+            success: true,
+            message: "task completed"
+        })
+    }
+    else {
+        res.status(400).json({
+            success: false,
+            message: "You cant complete this"
+        })
+    }
 })
 exports.requestsById = catchAsyncErrors(async (req, res, next) => {
     const { userId } = req.params;
@@ -631,8 +635,68 @@ const verifyImage = (image) => {
 
 };
 
+exports.personDetails = catchAsyncErrors(async (req, res, next) => {
+    const { userId } = req.params;
+    let personById;
+    const allTasks = await TasksSchema.find();
+    try {
+        personById = await PersonSchema.findById(userId);
 
-exports.checkValidUser  =  catchAsyncErrors(async (req, res, next) => {
-    // soon will be added 
+        
+        if (personById) {
+            const completed = allTasks.filter((item) => {
+
+
+                if (item.assignTo == userId) {
+                    if (item.taskStatus)
+                        return item;
+                }
+
+            }
+            );
+            const unCompleted = allTasks.filter((item) => {
+                if (item.assignTo == userId) {
+                    if (!item.taskStatus)
+                        return item;
+                }
+
+            }
+            );
+            const events = await EventSchema.find();
+            const teamsLists = events.filter(event => {
+                const listofOneTeam = event.team;
+                if (event.userId == userId)
+                    return event;
+                // console.log(listofOneTeam)  
+                for (let i = 0; i < listofOneTeam.length; i++) {
+                    if (userId == listofOneTeam[i].id)
+                        return event;
+                }
+            });
+            res.status(200).json({
+                success: true,
+                completed: completed.length,
+                unCompleted: unCompleted.length,
+                requests: personById.requests.length,
+                events: teamsLists.length
+            })
+
+
+        }
+        else {
+            res.status(404).json({
+                success: false,
+                message: "User Not Found"
+            })
+
+        }
+    } catch (error) 
+    {
+            res.status(404).json({
+                success: false,
+                message: "User Not Found"
+            })
+    }
+    
+
 })
-
