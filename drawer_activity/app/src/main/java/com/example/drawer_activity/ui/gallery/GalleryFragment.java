@@ -25,7 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.drawer_activity.HardCoded;
 import com.example.drawer_activity.R;
-import com.example.drawer_activity.UserID;
+import com.example.drawer_activity.GlobalValues;
 import com.example.drawer_activity.databinding.FragmentGalleryBinding;
 
 import org.json.JSONException;
@@ -79,7 +79,7 @@ public class GalleryFragment extends Fragment {
 
         final JSONObject[] jsonObject = new JSONObject[1];
         RequestQueue queue = Volley.newRequestQueue(getContext());
-        String url = HardCoded.apiLink+"/person/"+ UserID.user_id;
+        String url = HardCoded.apiLink+"/person/"+ GlobalValues.user_id;
         StringRequest stringRequest = new StringRequest(GET, url, new Response.Listener() {
             @Override
             public synchronized void onResponse(Object response)

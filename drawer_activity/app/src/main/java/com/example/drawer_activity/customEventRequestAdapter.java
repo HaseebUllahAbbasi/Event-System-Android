@@ -45,7 +45,7 @@ public class customEventRequestAdapter extends ArrayAdapter<EventRequests> {
         Button rejectBtn =  convertView.findViewById(R.id.rejectButton);
         rejectBtn.setTag(position);
         //convertView.setTag();
-                acceptBtn.setOnClickListener(new View.OnClickListener() {
+        acceptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                /// Log.d(TAG, "onClick: "+v.getParent().toString());
@@ -67,6 +67,8 @@ public class customEventRequestAdapter extends ArrayAdapter<EventRequests> {
                     public void onResponse(JSONObject response) {
                         System.out.println(response);
                         Toast.makeText(getContext(), "Request Accepted", Toast.LENGTH_SHORT).show();
+                        list.remove(list.get(Integer.parseInt(v.getTag().toString())));
+                        notifyDataSetChanged();
 
                     }
                 }, new Response.ErrorListener() {
@@ -103,8 +105,8 @@ public class customEventRequestAdapter extends ArrayAdapter<EventRequests> {
                     public void onResponse(JSONObject response) {
                         System.out.println(response);
                         Toast.makeText(getContext(), "Request Rejected", Toast.LENGTH_SHORT).show();
-                        ViewEventRequests requests = new ViewEventRequests();
-                        requests.loadEventRequests();
+                        list.remove(list.get(Integer.parseInt(v.getTag().toString())));
+                        notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
                     @Override

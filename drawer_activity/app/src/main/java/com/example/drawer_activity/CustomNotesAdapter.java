@@ -1,6 +1,9 @@
 package com.example.drawer_activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,9 +50,11 @@ public class CustomNotesAdapter extends ArrayAdapter<NotesModel> {
 
         removeButton.setTag(position);
 
+
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 String postUrl = HardCoded.apiLink+"/removeNote";
                 RequestQueue requestQueue = Volley.newRequestQueue(getContext());
 
@@ -68,7 +73,22 @@ public class CustomNotesAdapter extends ArrayAdapter<NotesModel> {
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println(response);
-                        Toast.makeText(getContext(), "Note has been Removed", Toast.LENGTH_SHORT).show();
+                        try {
+                            if(response.getBoolean("success")) {
+                                Toast.makeText(getContext(), "Note has been Removed", Toast.LENGTH_SHORT).show();
+                                list.remove(Integer.parseInt(v.getTag().toString()));
+                                notifyDataSetChanged();
+                                Log.d(TAG, "onResponse: "+Integer.parseInt(v.getTag().toString()));
+                            }
+                            else
+                            {
+                                Toast.makeText(getContext(), "only owner of event can remove notes", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
 
                     }
                 }, new Response.ErrorListener() {

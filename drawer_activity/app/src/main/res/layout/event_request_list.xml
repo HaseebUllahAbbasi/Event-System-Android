@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="#2C2B17"
     android:orientation="vertical"
     android:weightSum="1">
 
@@ -18,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/left_right_linear_bac_1"
+            android:background="#EAE25F"
             android:orientation="vertical"
             android:weightSum="3">
 
@@ -26,8 +25,11 @@
                 android:id="@+id/req_title"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="0.8"
+                android:gravity="center"
                 android:text="Title"
                 android:textColor="#0E0D0D"
                 android:textSize="30dp" />
@@ -36,7 +38,9 @@
                 android:id="@+id/req_desc"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:text="Description"
                 android:textColor="#0E0D0D"
@@ -56,11 +60,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_weight="0.4"
-                    android:backgroundTint="#B21BDD"
-                    android:fontFamily="@font/bungee"
+                    android:backgroundTint="#FFFFFF"
+                    android:fontFamily="sans-serif"
                     android:text="REJECT"
-                    android:textColor="#FAFAFA"
-                    android:textSize="18dp" />
+                    android:textColor="#0B0606"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    app:strokeWidth="5dp" />
 
                 <Button
                     android:id="@+id/acceptButton"
@@ -68,11 +74,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="0.4"
-                    android:backgroundTint="#B21BDD"
-                    android:fontFamily="@font/bungee"
+                    android:backgroundTint="#364CD8"
+                    android:fontFamily="sans-serif"
                     android:text="ACCEPT"
-                    android:textColor="#FAFAFA"
-                    android:textSize="18dp" />
+                    android:textColor="#FFFDFD"
+                    android:textSize="24dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>

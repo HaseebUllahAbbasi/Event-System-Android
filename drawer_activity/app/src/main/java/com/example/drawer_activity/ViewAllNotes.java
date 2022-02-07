@@ -81,8 +81,10 @@ public class ViewAllNotes extends AppCompatActivity {
 
                     }
                     CustomNotesAdapter customNotesAdapter = new CustomNotesAdapter(getApplicationContext(),R.layout.view_all_note_layout,notes);
+                    customNotesAdapter.notifyDataSetChanged();
                     Log.d(TAG, "onCreate: "+   Arrays.toString(notes.toArray()));
                     listview.setAdapter(customNotesAdapter);
+
 
 
                 } catch (JSONException e) {

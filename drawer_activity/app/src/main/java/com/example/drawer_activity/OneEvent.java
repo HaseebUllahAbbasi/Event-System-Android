@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -151,6 +152,15 @@ public class OneEvent extends AppCompatActivity {
                     notes.setText(""+notesArray.length());
                     guests.setText(""+guestsArray.length());
 
+                    if(GlobalValues.eventStatus)
+                    {
+                        Button btn = findViewById(R.id.completeButton);
+                        btn.setText("✅");
+                        btn.setEnabled(false);
+                        btn.setTextSize(25);
+                        btn.getBackground().setAlpha(0);
+                    }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -186,6 +196,7 @@ public class OneEvent extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 System.out.println(response);
                 Toast.makeText(getApplicationContext(), "Event Completed", Toast.LENGTH_SHORT).show();
+
 
             }
         }, new Response.ErrorListener() {

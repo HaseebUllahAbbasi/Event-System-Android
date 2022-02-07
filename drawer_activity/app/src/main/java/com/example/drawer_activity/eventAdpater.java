@@ -8,7 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +45,8 @@ public class eventAdpater extends RecyclerView.Adapter<eventAdpater.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        setAnimation(holder.container, position);
+
         final MyEvents eventsList = events[position];
         System.out.println(eventsList.getEventName()+" hello world");
         holder.txtEventName.setText(eventsList.getEventName());
@@ -68,13 +74,21 @@ public class eventAdpater extends RecyclerView.Adapter<eventAdpater.ViewHolder> 
         ImageView image;
         TextView txtEventName;
         TextView txtEventDescription;
+        LinearLayout container;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.item_image);
             txtEventName = itemView.findViewById(R.id.event_name);
             txtEventDescription = itemView.findViewById(R.id.event_description);
             System.out.println("viewholder");
+            container = (LinearLayout) itemView.findViewById(R.id.recycler_view_one);
 
         }
+    }
+
+
+    private void setAnimation(LinearLayout container, int position) {
+        Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
+        container.startAnimation(animation);
     }
 }

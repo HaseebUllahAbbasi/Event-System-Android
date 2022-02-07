@@ -125,6 +125,10 @@ public class LoginPage extends AppCompatActivity {
     {
         Intent intent = new Intent(this,RegisterUser.class);
         startActivity(intent);
-//        finish();
+ //       finish();
     }
+    public void onBackPressed() {
+        this.moveTaskToBack(true);
+    }
+
 }

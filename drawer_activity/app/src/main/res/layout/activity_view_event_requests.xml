@@ -5,31 +5,52 @@
     android:id="@+id/viewRequestLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/grad_back3"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical"
     android:weightSum="1"
-    tools:context=".ViewEventRequests"
-    android:orientation="vertical">
+    tools:context=".ViewEventRequests">
 
-    <ListView
-        android:id="@+id/listview"
+    <TextView
+        android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:dividerHeight="10dp"
-        android:padding="8dp" />
+        android:layout_weight="0.08"
+        android:gravity="center"
+        android:text="Requests"
+        android:textColor="#090909"
+        android:textSize="30dp" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/not_found_requests"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="25dp"
-        android:layout_weight="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:backgroundTint="#274081"
+        app:cardCornerRadius="20dp">
 
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="re_req_found.json"
-        app:lottie_loop="true" />
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="10dp"
+            android:padding="8dp">
+
+        </ListView>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/not_found_requests"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="req_not_found.json"
+            app:lottie_loop="true"
+            tools:ignore="MissingClass" />
+    </androidx.cardview.widget.CardView>
+
 </LinearLayout>

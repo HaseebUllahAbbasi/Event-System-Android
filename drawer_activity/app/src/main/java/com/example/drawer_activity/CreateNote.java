@@ -59,6 +59,9 @@ public class CreateNote extends AppCompatActivity {
                 try {
                     if(response.getBoolean("success"))
                         Snackbar.make(layout,"Note has been created",Snackbar.LENGTH_LONG).show();
+                    else
+                        Snackbar.make(layout,"You are not a member of this event",Snackbar.LENGTH_LONG).show();
+
 
 
                 } catch (JSONException e) {

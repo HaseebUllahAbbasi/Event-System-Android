@@ -82,6 +82,7 @@ public class HomeFragment extends Fragment {
                             case 4:
                                 Intent login = new Intent(getContext(), LoginPage.class);
                                 startActivity(login);
+                                getActivity().finish();
                                 break;
                         }
                     }

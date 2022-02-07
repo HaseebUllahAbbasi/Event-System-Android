@@ -4,10 +4,12 @@ import static android.content.ContentValues.TAG;
 import static com.android.volley.Request.Method.GET;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -85,15 +87,17 @@ public class ViewEventRequests extends AppCompatActivity {
                     }
 
                     customEventRequestAdapter requestAdapter = new customEventRequestAdapter(getApplicationContext(),R.layout.event_request_list,requestsList);
+                    requestAdapter.notifyDataSetChanged();
                     listView.setAdapter(requestAdapter);
 
 
-                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view_1.getLayoutParams();
-                    params.weight = 1;
+
+                    CardView.LayoutParams params = (CardView.LayoutParams) view_1.getLayoutParams();
+                    params.height = 0;;
                     view_1.setLayoutParams(params);
 
-                    params = (LinearLayout.LayoutParams) view_2.getLayoutParams();
-                    params.weight = 0;
+                    params = (CardView.LayoutParams) view_2.getLayoutParams();
+                    params.height = ViewGroup.LayoutParams.MATCH_PARENT;
                     view_2.setLayoutParams(params);
 
 
@@ -110,12 +114,12 @@ public class ViewEventRequests extends AppCompatActivity {
             public synchronized void onErrorResponse(VolleyError error) 
             {
 
-                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view_1.getLayoutParams();
-                params.weight = 0;
+                CardView.LayoutParams params = (CardView.LayoutParams) view_1.getLayoutParams();
+                params.height = ViewGroup.LayoutParams.MATCH_PARENT;
                 view_1.setLayoutParams(params);
 
-                params = (LinearLayout.LayoutParams) view_2.getLayoutParams();
-                params.weight = 1;
+                params = (CardView.LayoutParams) view_2.getLayoutParams();
+                params.height = 0;;
 
                 view_2.setLayoutParams(params);
 

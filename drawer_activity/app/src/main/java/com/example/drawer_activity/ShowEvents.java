@@ -54,6 +54,8 @@ public class ShowEvents extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+
         final JSONObject[] jsonObject = new JSONObject[1];
         final JSONArray[] array = new JSONArray[1];
 
