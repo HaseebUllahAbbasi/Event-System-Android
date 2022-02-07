@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
+
                 final CircleMenuView menu = getActivity().findViewById(R.id.circle_menu);
                 menu.setEventListener(new CircleMenuView.EventListener(){
                     @Override

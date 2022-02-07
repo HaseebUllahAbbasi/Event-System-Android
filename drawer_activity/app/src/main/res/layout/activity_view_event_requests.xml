@@ -30,6 +30,6 @@
         app:layout_constraintTop_toTopOf="parent"
 
         app:lottie_autoPlay="true"
-        app:lottie_fileName="not_found_two.json"
+        app:lottie_fileName="re_req_found.json"
         app:lottie_loop="true" />
 </LinearLayout>

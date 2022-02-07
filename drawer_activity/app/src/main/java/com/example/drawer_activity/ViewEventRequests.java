@@ -88,13 +88,11 @@ public class ViewEventRequests extends AppCompatActivity {
                     listView.setAdapter(requestAdapter);
 
 
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view_1.getLayoutParams();
                     params.weight = 1;
                     view_1.setLayoutParams(params);
 
-                    params = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                    params = (LinearLayout.LayoutParams) view_2.getLayoutParams();
                     params.weight = 0;
                     view_2.setLayoutParams(params);
 
@@ -112,14 +110,13 @@ public class ViewEventRequests extends AppCompatActivity {
             public synchronized void onErrorResponse(VolleyError error) 
             {
 
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view_1.getLayoutParams();
                 params.weight = 0;
                 view_1.setLayoutParams(params);
 
-                params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                params = (LinearLayout.LayoutParams) view_2.getLayoutParams();
                 params.weight = 1;
+
                 view_2.setLayoutParams(params);
 
 
