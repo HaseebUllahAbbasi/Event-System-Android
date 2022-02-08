@@ -118,6 +118,16 @@
         android:layout_gravity="center"
         android:progressDrawable="@drawable/circular_progress_bar"
         android:visibility="invisible" />
+<!--    -->
+<!--    <com.airbnb.lottie.LottieAnimationView-->
+<!--        android:id="@+id/not_found_requests"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+
+<!--        app:lottie_autoPlay="true"-->
+<!--        app:lottie_fileName="super_load.json"-->
+<!--        app:lottie_loop="true"-->
+<!--        tools:ignore="MissingClass" />-->
 
 
 </LinearLayout>

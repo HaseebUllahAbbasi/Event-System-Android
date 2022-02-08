@@ -101,10 +101,5 @@ public class ShowEvents extends AppCompatActivity {
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
-
-
-
-
-
     }
 }

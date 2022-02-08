@@ -1,5 +1,9 @@
 package com.example.drawer_activity.ui.home;
 
+import static android.content.ContentValues.TAG;
+import static com.android.volley.Request.Method.GET;
+import static com.example.drawer_activity.HardCoded.apiLink;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,12 +18,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.drawer_activity.GlobalValues;
 import com.example.drawer_activity.LoginPage;
 import com.example.drawer_activity.R;
 import com.example.drawer_activity.ShowEvents;
 import com.example.drawer_activity.ViewEventRequests;
 import com.example.drawer_activity.databinding.FragmentHomeBinding;
 import com.ramotion.circlemenu.CircleMenuView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class HomeFragment extends Fragment {
 
@@ -34,11 +47,11 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onChanged(@Nullable String s)
+            {
+                onload();
 
                 final CircleMenuView menu = getActivity().findViewById(R.id.circle_menu);
                 menu.setEventListener(new CircleMenuView.EventListener(){
@@ -82,7 +95,6 @@ public class HomeFragment extends Fragment {
                             case 4:
                                 Intent login = new Intent(getContext(), LoginPage.class);
                                 startActivity(login);
-                                getActivity().finish();
                                 break;
                         }
                     }
@@ -104,6 +116,56 @@ public class HomeFragment extends Fragment {
         });
 
         return root;
+    }
+    RequestQueue queue;
+    private void onload()
+    {
+
+        final JSONObject[] jsonObject = new JSONObject[1];
+        queue = Volley.newRequestQueue(getContext());
+        String url = apiLink+"/getDetails/"+ GlobalValues.user_id;
+        StringRequest stringRequest = new StringRequest(GET, url, new Response.Listener() {
+            @Override
+            public synchronized void onResponse(Object response)
+            {
+                try {
+                    jsonObject[0] = new JSONObject(response.toString());
+                    Log.d(TAG, "onResponse: "+jsonObject[0].toString());
+
+                    JSONObject personFetched = jsonObject[0];
+
+                    int completed = personFetched.getInt("completed");
+                    int unCompleted = personFetched.getInt("unCompleted");
+                    int requests = personFetched.getInt("requests");
+                    int events = personFetched.getInt("events");
+
+                    TextView name = getActivity().findViewById(R.id.ViewNameHome);
+                    name.setText("Hi "+GlobalValues.user_name+ ", You have ");
+                    TextView complete = getActivity().findViewById(R.id.ViewCompletedTasksHome);
+                    TextView Incomplete = getActivity().findViewById(R.id.ViewUnCompletedTasksHome);
+                    TextView eventsHome = getActivity().findViewById(R.id.ViewEventsHome);
+                    TextView req = getActivity().findViewById(R.id.ViewRequestsHome);
+                    complete.setText(""+completed);
+                    Incomplete.setText(""+unCompleted);
+                    req.setText(""+requests);
+                    eventsHome.setText(""+events);
+
+
+
+                } catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public synchronized void onErrorResponse(VolleyError error)
+            {
+                Log.d(TAG, "onErrorResponse: "+error.toString());
+
+            }
+        });
+        queue.add(stringRequest);
     }
 
     @Override
