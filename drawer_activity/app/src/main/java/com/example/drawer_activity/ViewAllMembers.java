@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,12 +34,16 @@ public class ViewAllMembers extends AppCompatActivity
 
     ListView listView;
     CoordinatorLayout layout;
+    View view_1, view_2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_all_members2);
         listView = findViewById(R.id.memberListView);
         layout = findViewById(R.id.view_All_Members_Main);
+        view_1  =    findViewById(R.id.not_found_requests_members);
+        view_2  =   findViewById(R.id.memberListView);
+
 
 
         Intent intent = getIntent();
@@ -72,6 +77,17 @@ public class ViewAllMembers extends AppCompatActivity
                     Log.d(TAG, "onCreate: "+    Arrays.toString(events.toArray()));
                     listView.setAdapter(memberAdapter);
 
+                    if(array[0].length()>0) {
+                        view_2.setVisibility(View.VISIBLE);
+                        view_1.setVisibility(View.INVISIBLE);
+                    }
+                    else
+                    {
+                        view_2.setVisibility(View.INVISIBLE);
+                        view_1.setVisibility(View.VISIBLE);
+                        view_1.setBackgroundColor(Color.TRANSPARENT);
+                    }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -80,6 +96,9 @@ public class ViewAllMembers extends AppCompatActivity
         }, new Response.ErrorListener() {
             @Override
             public synchronized void onErrorResponse(VolleyError error) {
+                view_2.setVisibility(View.INVISIBLE);
+                view_1.setVisibility(View.VISIBLE);
+                view_1.setBackgroundColor(Color.TRANSPARENT);
             }
         });
 

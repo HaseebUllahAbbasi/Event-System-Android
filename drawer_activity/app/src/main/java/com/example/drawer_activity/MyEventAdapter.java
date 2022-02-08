@@ -51,8 +51,7 @@ public class MyEventAdapter extends RecyclerView.Adapter<MyEventAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, events.getId(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(context, events.getEventName(), Toast.LENGTH_SHORT).show();
+                
                 SharedPreferences preferences = context.getSharedPreferences("eventDetail",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("eventid",events.getId());

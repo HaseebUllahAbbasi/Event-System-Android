@@ -4,12 +4,14 @@ import static android.content.ContentValues.TAG;
 import static com.android.volley.Request.Method.GET;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +35,7 @@ public class ViewAllGuests extends AppCompatActivity {
     ListView listView;
     String id;
     CoordinatorLayout layout;
+    View view_1, view_2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,10 @@ public class ViewAllGuests extends AppCompatActivity {
         guestNumber = findViewById(R.id.guest_number);
         listView  =findViewById(R.id.guestListview);
         layout = findViewById(R.id.view_All_Guests_Main);
+
+        view_1  =    findViewById(R.id.not_found_requests_guests);
+        view_2  =   findViewById(R.id.guestListview);
+
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -71,8 +78,30 @@ public class ViewAllGuests extends AppCompatActivity {
                     }
                     CustomGuestAdapter guestAdapter = new CustomGuestAdapter(getApplicationContext(),R.layout.view_all_guests_layout,guests);
                     Log.d(TAG, "onCreate: "+  Arrays.toString(guests.toArray()));
+                    guestAdapter.notifyDataSetChanged();
                     listView.setAdapter(guestAdapter);
 
+                    if(array[0].length()>0) {
+                        CardView.LayoutParams params = (CardView.LayoutParams) view_1.getLayoutParams();
+                        params.height = 0;
+                        ;
+                        view_1.setLayoutParams(params);
+
+                        params = (CardView.LayoutParams) view_2.getLayoutParams();
+                        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                        view_2.setLayoutParams(params);
+                    }
+                    else
+                    {
+                        CardView.LayoutParams params = (CardView.LayoutParams) view_1.getLayoutParams();
+                        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                        view_1.setLayoutParams(params);
+
+                        params = (CardView.LayoutParams) view_2.getLayoutParams();
+                        params.height = 0;;
+
+                        view_2.setLayoutParams(params);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -81,6 +110,17 @@ public class ViewAllGuests extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public synchronized void onErrorResponse(VolleyError error) {
+                CardView.LayoutParams params = (CardView.LayoutParams) view_1.getLayoutParams();
+                params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                view_1.setLayoutParams(params);
+
+                params = (CardView.LayoutParams) view_2.getLayoutParams();
+                params.height = 0;;
+
+                view_2.setLayoutParams(params);
+
+
+                Log.d(TAG, "onErrorResponse: 401 now display the icon");
             }
         });
 

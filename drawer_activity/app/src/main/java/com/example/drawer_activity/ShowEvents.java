@@ -4,11 +4,14 @@ import static android.content.ContentValues.TAG;
 import static com.android.volley.Request.Method.GET;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,10 +28,15 @@ import java.util.Arrays;
 
 public class ShowEvents extends AppCompatActivity {
 
+
+    View view_1 ;
+    View view_2 ;
     @Override                                                      
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_events);
+        view_1 = findViewById(R.id.not_found_events);
+        view_2  = findViewById(R.id.recyclerView);
 
         System.out.println("inside showevents");
 //        RecyclerView recyclerView = findViewById(R.id.recycler_view);
@@ -85,6 +93,29 @@ public class ShowEvents extends AppCompatActivity {
                     recyclerView.setAdapter(myEventAdapter);
 
 
+                    if(array[0].length()>0) {
+                        CardView.LayoutParams params = (CardView.LayoutParams) view_1.getLayoutParams();
+                        params.height = 0;
+                        ;
+                        view_1.setLayoutParams(params);
+
+                        params = (CardView.LayoutParams) view_2.getLayoutParams();
+                        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                        view_2.setLayoutParams(params);
+                    }
+                    else
+                    {
+                        CardView.LayoutParams params = (CardView.LayoutParams) view_1.getLayoutParams();
+                        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                        view_1.setLayoutParams(params);
+
+                        params = (CardView.LayoutParams) view_2.getLayoutParams();
+                        params.height = 0;;
+
+                        view_2.setLayoutParams(params);
+                    }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -95,6 +126,14 @@ public class ShowEvents extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public synchronized void onErrorResponse(VolleyError error) {
+                CardView.LayoutParams params = (CardView.LayoutParams) view_1.getLayoutParams();
+                params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                view_1.setLayoutParams(params);
+
+                params = (CardView.LayoutParams) view_2.getLayoutParams();
+                params.height = 0;;
+
+                view_2.setLayoutParams(params);
             }
         });
 

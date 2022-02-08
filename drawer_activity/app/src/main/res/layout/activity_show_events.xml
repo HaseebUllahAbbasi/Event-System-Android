@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:backgroundTint="#ED274081"
+        android:backgroundTint="#274081"
         app:cardCornerRadius="20dp">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -29,6 +29,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/not_found_events"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="req_not_found.json"
+            app:lottie_loop="true"
+            tools:ignore="MissingClass" />
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

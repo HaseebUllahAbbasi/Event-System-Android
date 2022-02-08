@@ -72,4 +72,15 @@
         android:textSize="20dp"
         app:backgroundTint="@null" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/done_lotti"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:layout_margin="25dp"
+
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="done.json"
+        app:lottie_loop="true"
+        tools:ignore="MissingClass" />
 </LinearLayout>

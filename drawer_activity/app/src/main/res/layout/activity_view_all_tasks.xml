@@ -33,7 +33,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
         android:background="#CFB00F"
-        android:backgroundTint="#ED274081"
+        android:backgroundTint="#274081"
         app:cardCornerRadius="20dp">
 
         <ListView
@@ -41,5 +41,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/not_found_requests_tasks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="25dp"
+
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="req_not_found.json"
+            app:lottie_loop="true"
+            tools:ignore="MissingClass" />
     </androidx.cardview.widget.CardView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

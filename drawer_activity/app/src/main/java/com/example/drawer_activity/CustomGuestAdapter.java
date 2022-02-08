@@ -69,8 +69,11 @@ public class CustomGuestAdapter extends ArrayAdapter<GuestModel> {
                     public void onResponse(JSONObject response) {
                         System.out.println(response);
                         try {
-                            if(response.getBoolean("success"))
+                            if(response.getBoolean("success")) {
                                 Toast.makeText(getContext(), "Guest Removed", Toast.LENGTH_SHORT).show();
+                                list.remove(Integer.parseInt(v.getTag().toString()));
+                                notifyDataSetChanged();
+                            }
                             else
                                 Toast.makeText(getContext(), "You are not planner of this event, so you can't remove guests", Toast.LENGTH_SHORT).show();
 

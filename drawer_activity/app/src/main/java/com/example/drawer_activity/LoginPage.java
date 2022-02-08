@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -29,7 +31,7 @@ import org.json.JSONObject;
 public class LoginPage extends AppCompatActivity {
 
     LinearLayout layout;
-    private ProgressBar spinner;
+    private View spinner;
     TextInputEditText username,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +41,20 @@ public class LoginPage extends AppCompatActivity {
         username = findViewById(R.id.login_username);
         password = findViewById(R.id.login_password);
         layout = findViewById(R.id.login_wrapper);
-        spinner=(ProgressBar)findViewById(R.id.progressBar);
+        spinner=findViewById(R.id.progressBar);
 
     }
     public void onLogin(View view)
     {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view1 = (View) getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view1 == null) {
+            view1 = new View(this);
+        }
+        imm.hideSoftInputFromWindow(view1.getWindowToken(), 0);
+
         spinner.setVisibility(View.VISIBLE);
         Log.d(TAG, "onLogin: "+username.getText().toString() +" "+ password.getText().toString());
         String postUrl = "https://glacial-ridge-23454.herokuapp.com/login";
@@ -69,6 +80,8 @@ public class LoginPage extends AppCompatActivity {
                 try {
                     if (response.getBoolean("success")) {
                         spinner.setVisibility(View.INVISIBLE);
+                        Snackbar.make(layout,"Logged in Successfully",Snackbar.LENGTH_LONG).show();
+
                         JSONObject user = response.getJSONObject("users");
                         SharedPreferences preferences = getSharedPreferences("users",MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();

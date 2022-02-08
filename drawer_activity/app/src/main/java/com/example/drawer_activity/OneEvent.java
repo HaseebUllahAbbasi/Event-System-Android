@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,11 +31,15 @@ import org.json.JSONObject;
 public class OneEvent extends AppCompatActivity {
 
     String id;
+    View lotti;
     TextView eventName, description,  planner, teamMembers, tasks, notes, guests;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_event);
+
+        lotti= findViewById(R.id.done_lotti_event);
+        lotti.setVisibility(View.INVISIBLE);
 
         eventName = findViewById(R.id.one_event_name);
         description = findViewById(R.id.eventDesc_txt);
@@ -196,7 +201,19 @@ public class OneEvent extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 System.out.println(response);
                 Toast.makeText(getApplicationContext(), "Event Completed", Toast.LENGTH_SHORT).show();
-
+                lotti.setVisibility(View.VISIBLE);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        lotti.setVisibility(View.INVISIBLE);
+                        Button btn = findViewById(R.id.completeButton);
+                        btn.setText("✅");
+                        btn.setEnabled(false);
+                        btn.setTextSize(25);
+                        btn.getBackground().setAlpha(0);
+                    }
+                },3000);
 
             }
         }, new Response.ErrorListener() {

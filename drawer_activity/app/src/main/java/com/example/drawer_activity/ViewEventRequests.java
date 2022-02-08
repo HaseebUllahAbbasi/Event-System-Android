@@ -92,13 +92,27 @@ public class ViewEventRequests extends AppCompatActivity {
 
 
 
-                    CardView.LayoutParams params = (CardView.LayoutParams) view_1.getLayoutParams();
-                    params.height = 0;;
-                    view_1.setLayoutParams(params);
+                    if(array[0].length()>0) {
+                        CardView.LayoutParams params = (CardView.LayoutParams) view_1.getLayoutParams();
+                        params.height = 0;
+                        ;
+                        view_1.setLayoutParams(params);
 
-                    params = (CardView.LayoutParams) view_2.getLayoutParams();
-                    params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                    view_2.setLayoutParams(params);
+                        params = (CardView.LayoutParams) view_2.getLayoutParams();
+                        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                        view_2.setLayoutParams(params);
+                    }
+                    else
+                    {
+                        CardView.LayoutParams params = (CardView.LayoutParams) view_1.getLayoutParams();
+                        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                        view_1.setLayoutParams(params);
+
+                        params = (CardView.LayoutParams) view_2.getLayoutParams();
+                        params.height = 0;;
+
+                        view_2.setLayoutParams(params);
+                    }
 
 
 

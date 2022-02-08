@@ -2,11 +2,13 @@ package com.example.drawer_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import com.android.volley.Request;
@@ -27,7 +29,7 @@ public class createEvent extends AppCompatActivity {
     String username,userid;
 
     LinearLayout layout;
-
+    View lotti;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -39,9 +41,20 @@ public class createEvent extends AppCompatActivity {
         SharedPreferences pref = getSharedPreferences("users",MODE_PRIVATE);
         username = pref.getString("username",null);
         userid = pref.getString("userid",null);
+        lotti= findViewById(R.id.done_lotti);
+        lotti.setVisibility(View.INVISIBLE);
+
     }
     public void onCreateEvent(View view)
     {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view1 = (View) getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view1 == null) {
+            view1 = new View(this);
+        }
+        imm.hideSoftInputFromWindow(view1.getWindowToken(), 0);
         if(eventName.getText().toString().equals("") || eventDescription.getText().toString().equals("")
         || username.equals("") || userid.equals(""))
         {
@@ -70,6 +83,9 @@ public class createEvent extends AppCompatActivity {
                     try {
                         if (response.getBoolean("success")) {
                             Snackbar.make(layout, "Event Created", Snackbar.LENGTH_SHORT).show();
+
+
+                            lotti.setVisibility(View.VISIBLE);
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override

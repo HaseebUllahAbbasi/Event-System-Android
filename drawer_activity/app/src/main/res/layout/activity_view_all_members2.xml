@@ -22,8 +22,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
-        android:backgroundTint="#ED274081"
+        android:backgroundTint="#274081"
         app:cardCornerRadius="20dp">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/not_found_requests_members"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="25dp"
+
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="req_not_found.json"
+            app:lottie_loop="true"
+            tools:ignore="MissingClass" />
 
         <ListView
             android:id="@+id/memberListView"

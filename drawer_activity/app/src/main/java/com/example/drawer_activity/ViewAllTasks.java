@@ -5,12 +5,15 @@ import static com.android.volley.Request.Method.GET;
 import static com.android.volley.Request.Method.POST;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -33,6 +36,7 @@ public class ViewAllTasks extends AppCompatActivity {
     String eventid;
     ListView listView;
     CoordinatorLayout layout;
+    View view_1,view_2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,8 @@ public class ViewAllTasks extends AppCompatActivity {
         Intent intent = getIntent();
         eventid = intent.getStringExtra("id");
         layout = findViewById(R.id.view_All_Tasks_Main);
+        view_1  =    findViewById(R.id.not_found_requests_tasks);
+        view_2  =   findViewById(R.id.tasks_listview);
 
         final JSONObject[] jsonObject = new JSONObject[1];
         final JSONArray[] array = new JSONArray[1];
@@ -70,6 +76,19 @@ public class ViewAllTasks extends AppCompatActivity {
                     listView.setAdapter(taskAdapter);
 
 
+
+                    if(array[0].length()>0) {
+                        view_2.setVisibility(View.VISIBLE);
+                        view_1.setVisibility(View.INVISIBLE);
+                    }
+                    else
+                    {
+                        view_2.setVisibility(View.INVISIBLE);
+                        view_1.setVisibility(View.VISIBLE);
+                        view_1.setBackgroundColor(Color.TRANSPARENT);
+                    }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -77,6 +96,12 @@ public class ViewAllTasks extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public synchronized void onErrorResponse(VolleyError error) {
+
+                view_2.setVisibility(View.INVISIBLE);
+                view_1.setVisibility(View.VISIBLE);
+                view_1.setBackgroundColor(Color.TRANSPARENT);
+
+
             }
         });
 
