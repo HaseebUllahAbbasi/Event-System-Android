@@ -22,7 +22,7 @@ public class LogoScreen extends AppCompatActivity  implements Animation.Animatio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logo_screen);
 
-         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.myanimation);
+         animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
         imageView = findViewById(R.id.imageView3);
 
         animation.setAnimationListener(this);

@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#EAE25F"
+            android:background="#FFFFFF"
             android:orientation="vertical"
             android:weightSum="3">
 
@@ -31,7 +31,7 @@
                 android:layout_weight="0.8"
                 android:gravity="center"
                 android:text="Title"
-                android:textColor="#0E0D0D"
+                android:textColor="@color/official_dark_color"
                 android:textSize="30dp" />
 
             <TextView
@@ -60,13 +60,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_weight="0.4"
-                    android:backgroundTint="#FFFFFF"
+                    android:backgroundTint="#FFC107"
                     android:fontFamily="sans-serif"
                     android:text="REJECT"
                     android:textColor="#0B0606"
                     android:textSize="24dp"
-                    android:textStyle="bold"
-                    app:strokeWidth="5dp" />
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/acceptButton"

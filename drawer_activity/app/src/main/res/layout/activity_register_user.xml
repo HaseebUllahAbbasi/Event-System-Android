@@ -5,7 +5,7 @@
     android:id="@+id/registerUserScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/new_gradient"
     android:orientation="vertical"
     android:weightSum="1"
     tools:context=".RegisterUser">
@@ -26,6 +26,7 @@
             android:id="@+id/register_username"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/official_dark_color"
             tools:ignore="SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -46,6 +47,7 @@
             android:id="@+id/register_email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/official_dark_color"
             tools:ignore="SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -67,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
+            android:textColor="@color/official_dark_color"
             tools:ignore="SpeakableTextPresentCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -87,7 +90,8 @@
             android:id="@+id/register_password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/official_dark_color" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,11 +103,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="50dp"
         android:layout_weight="0.2"
-        android:backgroundTint="@color/cardview_dark_background"
+        android:backgroundTint="#FFD400"
 
         android:onClick="onRegister"
         android:text="REGISTER"
-        android:textColor="#FAF4F4"
+        android:textColor="@color/official_dark_color"
         android:textSize="20dp"
         app:cornerRadius="10dp" />
 
@@ -114,7 +118,7 @@
         android:gravity="center"
         android:onClick="callLogin"
         android:text="Already Registered? Login here"
-        android:textColor="#136EDD"
+        android:textColor="#3D3E3E"
         android:textSize="20dp" />
 
     <ProgressBar
