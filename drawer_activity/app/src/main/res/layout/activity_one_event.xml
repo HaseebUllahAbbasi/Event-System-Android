@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/grad_back3"
+    android:background="@color/official_dark_color"
     android:orientation="vertical"
     tools:context=".OneEvent">
 
@@ -13,10 +13,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/catamaran_bold"
-        android:text="Event Name"
-        android:textColor="#EDE2E2"
-        android:textSize="48sp"
+        android:text="LOADING"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +38,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/grad_back_2"
+            android:background="#DDC707"
             android:orientation="vertical"
             android:padding="10dp"
             android:weightSum="10">
@@ -233,11 +235,11 @@
                     android:onClick="completeEvent"
                     android:outlineAmbientShadowColor="@color/purple_200"
                     android:text="COMPLETE"
-                    android:textColor="#157368"
+                    android:textColor="@color/official_dark_color"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     app:cornerRadius="5dp"
-                    app:strokeColor="#157368"
+                    app:strokeColor="@color/official_dark_color"
                     app:strokeWidth="3dp" />
 
 
@@ -256,7 +258,7 @@
         app:icon_color="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintStart_toStartOf="parent">
 
     </com.ramotion.circlemenu.CircleMenuView>
 
@@ -267,12 +269,12 @@
 
         android:layout_marginTop="47dp"
         android:layout_marginBottom="103dp"
+        android:elevation="2dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:elevation="2dp"
         app:lottie_autoPlay="true"
         app:lottie_fileName="done.json"
         app:lottie_loop="true"

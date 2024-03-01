@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/grad_back3"
     android:orientation="vertical"
     tools:context=".ShowEvents">
 
@@ -14,14 +14,14 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="All Events"
-        android:textColor="#000000"
+        android:textColor="@color/official_dark_color"
         android:textSize="30dp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:backgroundTint="#274081"
+        android:backgroundTint="@color/official_dark_color"
         app:cardCornerRadius="20dp">
 
         <androidx.recyclerview.widget.RecyclerView

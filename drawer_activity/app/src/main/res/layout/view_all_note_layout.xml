@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
-            android:background="#ECE684"
+            android:background="#FFE607"
             android:gravity="center"
             android:orientation="vertical"
             android:weightSum="1">
@@ -31,7 +31,7 @@
                 android:layout_margin="10dp"
                 android:gravity="center"
                 android:text="Note"
-                android:textColor="#000"
+                android:textColor="#08176A"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
@@ -48,7 +48,7 @@
                 android:id="@+id/remove_note_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#020202"
+                android:backgroundTint="@color/official_dark_color"
                 android:text="Remove Note"
                 android:textColor="#FFFFFF"
                 android:textSize="16dp" />

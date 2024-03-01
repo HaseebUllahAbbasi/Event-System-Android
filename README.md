@@ -1,4 +1,4 @@
-# Android Event is a Semester Project .🔥🕯️.
+# Android Event is a Peer to Peer Event Management App
 
 ### Api Based Event Planning
 <iframe src="https://embed.lottiefiles.com/animation/87974"></iframe>
